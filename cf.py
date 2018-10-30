@@ -445,5 +445,5 @@ def siegel(t) :
 
 def Z(t) :
     z = I(0.5, t)
-    z1 = multi(siegel(t), zeta(z))
+    z1 = multi(eul(1,siegel(t))), zeta(z))
     return z1
