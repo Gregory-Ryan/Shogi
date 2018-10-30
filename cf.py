@@ -437,3 +437,13 @@ def F(z,n) :
         if mod(subt(z4,multi(0.00000000999,z4))) <= mod(z1) <= mod(add(z4,multi(0.00000000999,z4)))   :
             return z4 
     return math.inf
+
+def siegel(t) :
+    z = I(0.25, 0.5 * t)
+    z1 = arg(gamma(z)) - 0.5 * t * math.log(math.pi)
+    return z1
+
+def Z(t) :
+    z = I(0.5, t)
+    z1 = multi(siegel(t), zeta(z))
+    return z1
