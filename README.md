@@ -1,6 +1,6 @@
 # cf
 
-cf.I(x,y)
+# cf.I(x,y)
 Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + yi. 
 The input is two floats and it returns a string.
 
