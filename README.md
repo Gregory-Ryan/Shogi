@@ -1,22 +1,20 @@
-# cf
-
 # cf.I(x,y)
 Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + yi. 
 The input is two floats and it returns a string.
 
-cf.conj(x,y)
+# cf.conj(x,y)
 Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + -yi. 
 The input is two floats and it returns a string.
 
-cf.Re(z)
+# cf.Re(z)
 Returns the Real part of a complex number.
 The input is a string and it returns a float.
 
-cf.Im(z)
+# cf.Im(z)
 Returns the Imaginary part of a complex number.
 The input is a string and it returns a float.
 
-cf.neg(z)
+# cf.neg(z)
 Returns the negative of a complex number in the form of -x + -yi.
 The input is a string and it returns a string.
 
