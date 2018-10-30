@@ -1,5 +1,5 @@
 def H_n(n) :
-    #Calculates the Hermonic Series the nth term
+    #Calculates the Harmonic Series the nth term
     z1 = 0
     for i in range(1, n + 1) :
         z2 = 1 / i
