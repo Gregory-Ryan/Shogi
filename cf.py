@@ -447,3 +447,7 @@ def Z(t) :
     z = I(0.5, t)
     z1 = multi(eul(1,siegel(t))), zeta(z))
     return z1
+
+def B(n) :
+    z1 = multi(multi(power(-1,add(n,1)),n),zeta(subt(z,1)))
+    return z1
