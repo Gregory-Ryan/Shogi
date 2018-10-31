@@ -141,7 +141,3 @@ The input is a float and it returns a float.
 # cf.Z(t)
 Returns the Riemann-Siegel Z function of a real number in the form of x + yi. 
 The input is a float and it returns a string.
-
-# cf.B(n)
-Returns the bernoulli numbers of a complex number in the form of x + yi. 
-The input is a string and it returns a string.
