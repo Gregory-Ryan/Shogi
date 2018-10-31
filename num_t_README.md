@@ -7,4 +7,4 @@ Returns the polygamma function of a real number.
 The input is a integer and the output is a float.
 
 # num_t.euler_c
-Euler's constant.
+The Euler-Mascheroni constant. 
