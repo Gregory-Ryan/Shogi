@@ -1,5 +1,5 @@
 # num_t.H_n(n)
-Returns the harmonic sum from 0 to n.
+Returns the harmonic sum from 1 to n.
 The input is a integer and the output is a float.
 
 # num_t.polygamma(n)
