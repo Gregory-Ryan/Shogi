@@ -131,7 +131,7 @@ Returns the Dirichlet Eta function of a complex number in the form of x + yi.
 The input is a string and it returns a string.
 
 # cf.F(z,n)
-Returns the polylogarithm of a complex number in the form of x + yi. (sum of (z**k)/(k**n))
+Returns the polylogarithm of a complex number in the form of x + yi. (sum of (z**(k))/(k**(n))
 The input is two strings and it returns a string.
 
 # cf.siegel(t)
