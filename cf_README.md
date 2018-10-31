@@ -70,20 +70,74 @@ The input is two strings and it returns a string.
 Returns the a complex number divied by complex number in the form of x + yi. 
 The input is two strings and it returns a string.
 
-sin(z)
-csc(z)
-cos(z)
-sec(z)
-tan(z)
-cot(z)
-sinh(z)
-csch(z)
-cosh(z)
-sech(z)
-tanh(z)
-coth(z)
+# cf.sin(z)
+Returns the sine of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
 
-gamma(z)
-zeta(z)
-eta(z)
-F(z,n)
+# cf.csc(z)
+Returns the cosecant of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.cos(z)
+Returns the cosine of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.sec(z)
+Returns the secant of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.tan(z)
+Returns the tangent of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.cot(z)
+Returns the cotangent of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.sinh(z)
+Returns the hyperbolic sine of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.csch(z)
+Returns the hyperbolic cosecant of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.cosh(z)
+Returns the hyperbolic cosine of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.sech(z)
+Returns the hyperbolic secant of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.tanh(z)
+Returns the hyperbolic tangent of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.coth(z)
+Returns the hyperbolic cotangent of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.gamma(z)
+Returns the euler gamma of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.zeta(z)
+Returns the Riemann Zeta function of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.eta(z)
+Returns the Dirichlet Eta function of a complex number in the form of x + yi. 
+The input is a string and it returns a string.
+
+# cf.F(z,n)
+Returns the polylogarithm of a complex number in the form of x + yi. (sum of (z**k)/(k**n))
+The input is two strings and it returns a string.
+
+# cf.siegel(t)
+Returns the Riemann-Siegel theta function of a real number. 
+The input is a float and it returns a float.
+
+# cf.Z(t)
+Returns the Riemann-Siegel Z function of a real number in the form of x + yi. 
+The input is a float and it returns a string.
