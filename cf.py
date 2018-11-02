@@ -460,4 +460,36 @@ def B(n) :
     #calculates the bernoulli numbers
     z1 = multi(power(-1,add(n,1)),multi(n,zeta(subt(1,n))))
     return z1
-#add Totient Function
+
+def lamba(z) :
+    if Im(z) == 0 and Re(z) == 1 :
+        return math.nan
+    else:
+       z1 = multi(subt(1, power(2,neg(z))), zeta(z))
+       return z1
+
+def beta(z) :
+    if Re(z) >= 1 :
+        z1 = power(1,neg(z))
+        for i in range(1,10000000) :
+            z2 = multi((-1) ** (i), power(2*i + 1,neg(z)))
+            z1 = add(z1,z2)
+            z3 = multi((-1) ** (i + 1), power(2*(i + 1) + 1,neg(z)))
+            z4 = add(z1,z3)
+            if mod(subt(z4,multi(0.0000999,z4))) <= mod(z1) <= mod(add(z4,multi(0.0000999,z4)))   :
+                return z4
+        return math.inf
+    else:
+        z1 = div(beta(subt(1,z)),multi(multi(power(Decimal(2 / math.pi), z), sin(multi(math.pi /2, z))),gamma(z))) 
+
+def lerch(z,s,a) :
+    if mod(z) > 1 and not ((Re(a) % 1 == 0 and Re(a) <= 0) and Im(a) == 0) :
+        z1 = power(a,neg(s))
+        for i in range(1,1000000) :
+            z2 = multi(power(z,i),power(add(a,i),neg(s)))
+            z1 = add(z1,z2)
+            z3 = multi(power(z,int(i + 1)),power(add(a,int(i + 1)),neg(s)))
+            z4 = add(z1,z3)
+            if mod(subt(z4,multi(0.00000000999,z4))) <= mod(z1) <= mod(add(z4,multi(0.00000000999,z4)))   :
+                return z4 
+        return math.inf
