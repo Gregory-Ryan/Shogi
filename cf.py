@@ -460,3 +460,4 @@ def B(n) :
     #calculates the bernoulli numbers
     z1 = multi(power(-1,add(n,1)),multi(n,zeta(subt(1,n))))
     return z1
+#add Totient Function
