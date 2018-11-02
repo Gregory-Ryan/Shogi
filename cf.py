@@ -358,22 +358,23 @@ def coth(z) :
     return z1
 
 def gamma(z) :
-    #fix
     #Calculates the Gamma Function
     #The input is a string in the form x + yi
     #The output is a string in the form x + yi
-    z1 = multi(div(1, z), div(power(2, z), add(1, z)))
-    for i in range(2,10000) :
-            z2 = div(power((1 + 1 / i), z), add(1, div(z, i)))
-            z1 = multi(z1, z2)
-            z3 = div(power((1 + 1 / (i + 1)), z), add(1, div(z, i + 1)))
-            z4 = multi(z1, z3)
-            if mod(subt(z4,multi(0.0000000999,z4))) <= mod(z1) <= mod(add(z4,multi(0.0000000999,z4)))   :
-                return z1
-    return math.inf
+    if Re(z) % 1 == 0 and Re(z) <= 0 :
+        return math.nan
+    else:
+        z1 = multi(div(1, z), div(power(2, z), add(1, z)))
+        for i in range(2,10000) :
+                z2 = div(power((1 + 1 / i), z), add(1, div(z, i)))
+                z1 = multi(z1, z2)
+                z3 = div(power((1 + 1 / (i + 1)), z), add(1, div(z, i + 1)))
+                z4 = multi(z1, z3)
+                if mod(subt(z4,multi(0.0000000999,z4))) <= mod(z1) <= mod(add(z4,multi(0.0000000999,z4)))   :
+                    return z1
+        return math.inf
 
 def zeta(z) :
-    #fix
     #Calculates the Riemann zeta function 
     #The input is a string in the form x + yi
     #The output is a string in the form x + yi
@@ -395,7 +396,6 @@ def zeta(z) :
             z3 = multi((-1) ** i, power(int(i + 1),neg(z)))
             z4 = add(z1,z3)
             if Decimal(mod(subt(z4,multi(0.00000999,z4)))) <= Decimal(mod(z1)) <= Decimal(mod(add(z4,multi(0.00000999,z4))))   :
-                print(div(z4,subt(1, power(2, subt(1, z)))))
                 return div(z4,subt(1, power(2, subt(1, z)))) 
         return math.inf
     if Re(z) < 0 :
@@ -446,8 +446,8 @@ def F(z,n) :
 
 def siegel(t) :
     #Calculates the Riemann siegel theta function
-    z = I(Decimal(0.25), Decimal(0.5 * t))
-    z1 = Decimal(arg(gamma(z))) - 0.5 * t * Decimal(math.log(Decimal(math.pi)))
+    z = I(0.25, 0.5 * t)
+    z1 = arg(gamma(z)) - Decimal(0.5 * t * math.log(math.pi))
     return z1
 
 def Z(t) :
