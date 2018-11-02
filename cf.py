@@ -1,25 +1,26 @@
 import math
+from decimal import Decimal
 
 def I(x,y) :
     #Takes the Re(z) and the Im(z) and turns it into a complex number(repersented by a string)
     #x is the Re(z) and y is the Im(z)
     #The output is a string in the form x + yi
     if y == 0 :
-        z = str(x)
+        z = str(Decimal(x))
     elif x == 0 :
         if y == 1 :
             z = 'i'
         elif y == -1 :
             z = '-i'
         else :
-            z = str(y) + 'i'
+            z = str(Decimal(y)) + 'i'
     else : 
         if y == 1 :
-            z = str(x) + " " + "+" + " " + 'i'
+            z = str(Decimal(x)) + " " + "+" + " " + 'i'
         elif y == -1 :
-            z = str(x) + " " + "+" + " " + '-i'
+            z = str(Decimal(x)) + " " + "+" + " " + '-i'
         else :
-            z = str(x) + " " + "+" + " " + str(y) + 'i'
+            z = str(Decimal(x)) + " " + "+" + " " + str(Decimal(y)) + 'i'
     return z
 
 def conj(x,y) :
@@ -27,24 +28,24 @@ def conj(x,y) :
     #x is the Re(z) and y is the Im(z)
     #The output is a string in the form x + yi
     if y == 0 :
-        z = str(x)
+        z = str(Decimal(x))
     elif x == 0 :
         if y == 1 :
             z = '-i'
         elif y == -1 :
             z = 'i'
         else :
-            z = '-' + str(y) + 'i'
+            z = '-' + str(Decimal(x)) + 'i'
     else :
         if y == 1 :
-            z = str(x) + " " + "" + " " + '-i'
+            z = str(Decimal(x)) + " " + "" + " " + '-i'
         elif y == -1 :
-            z = str(x) + " " + "" + " " + 'i'
+            z = str(Decimal(x)) + " " + "" + " " + 'i'
         else :
             if y[0,1] == '-' :
-                z = str(x) + " " + "+" + " " + str(y) + 'i'
+                z = str(Decimal(x)) + " " + "+" + " " + str(Decimal(y)) + 'i'
             else:
-                z = str(x) + " " + "+" + " " + "-" + str(y) + 'i'
+                z = str(Decimal(x)) + " " + "+" + " " + "-" + str(Decimal(y)) + 'i'
     return z
 
 def Re(z) :
@@ -61,11 +62,11 @@ def Re(z) :
                     continue
                 else :
                     sr2 = sr[0 : count - 1]
-                    sr22 = float(sr2)
+                    sr22 = Decimal(sr2)
                     return sr22
         return 0
     else :
-        zz = float(z)
+        zz = Decimal(z)
         return zz
     
 def Im(z) :
@@ -83,19 +84,19 @@ def Im(z) :
                 else :
                     sr2 = sr[count + 1 : len(sr) - 1]
                     if sr2 == ' ' :
-                        fin = 1
+                        fin = Decimal(1)
                     elif sr2 == ' -' :
-                        fin = -1
+                        fin = Decimal(-1)
                     else :
-                        fin = float(sr2)
+                        fin = Decimal(sr2)
                     return fin
         sr22 = sr[0 : len(sr) - 1]
         if sr22 == '' :
-            return float(1)
+            return Decimal(1)
         elif sr22 == '-' :
-            return float(-1)
+            return Decimal(-1)
         else :
-            return float(sr22)
+            return Decimal(sr22)
     else :
         return 0
 
@@ -163,7 +164,7 @@ def Arg(z) :
     #The output is in radians
     x = Re(z)
     y = Im(z)
-    t = math.atan2(y,x)
+    t = Decimal(math.atan2(y,x))
     return t
 
 def arg(z) :
@@ -172,7 +173,7 @@ def arg(z) :
     #The output is in radians
     x = Re(z)
     y = Im(z)
-    t = math.atan(y/x)
+    t = Decimal(math.atan(y/x))
     return t
 
 def mod(z) :
@@ -181,7 +182,7 @@ def mod(z) :
     #The output is a string in the form x + yi
     x = Re(z)
     y = Im(z)
-    z1 = math.sqrt(x ** 2 + y ** 2)
+    z1 = Decimal(math.sqrt(x ** 2 + y ** 2))
     return z1
 
 def Log(z) :
@@ -205,8 +206,8 @@ def log(z) :
 def eul(r,t) :
     #r is the radius and t is the angle in radians(they must be real)
     #The output is a string in the form x + yi
-    u = float(r * math.cos(t))
-    v = float(r * math.sin(t))
+    u =Decimal(r) * Decimal(math.cos(t))
+    v = Decimal(r) * Decimal(math.sin(t))
     z1 = I(u,v)
     return z1
 
@@ -215,8 +216,8 @@ def eul_c(r,z) :
     #The output is a string in the form x + yi
     x = Re(z)
     y = Im(z)
-    u = float(math.exp(-y) * math.cos(x))
-    v = float(math.exp(-y) * math.sin(x))
+    u = Decimal(math.exp(-y)) * Decimal(math.cos(x))
+    v = Decimal(math.exp(-y)) * Decimal(math.sin(x))
     z1 = I(u,v)
     z2 = multi(r,z1)
     return z2
@@ -227,7 +228,7 @@ def power(z,p) :
     #The output is a string in the form x + yi
     x = Re(p)
     y = Im(p)
-    r = multi(mod(z) ** x, eul_c(1,y * math.log(mod(z)))) 
+    r = multi(mod(z) ** x, eul_c(1,y * Decimal(math.log(mod(z))))) 
     t = Arg(z)
     pow = multi(t,p)
     z1 = eul_c(r, pow)
@@ -357,6 +358,7 @@ def coth(z) :
     return z1
 
 def gamma(z) :
+    #fix
     #Calculates the Gamma Function
     #The input is a string in the form x + yi
     #The output is a string in the form x + yi
@@ -371,6 +373,7 @@ def gamma(z) :
     return math.inf
 
 def zeta(z) :
+    #fix
     #Calculates the Riemann zeta function 
     #The input is a string in the form x + yi
     #The output is a string in the form x + yi
@@ -386,12 +389,13 @@ def zeta(z) :
         return math.inf
     elif Re(z) >= 0 :
         z1 = power(1,neg(z))
-        for i in range(2,100000) :
+        for i in range(2,10000000) :
             z2 = multi((-1) ** (i - 1), power(i,neg(z)))
             z1 = add(z1,z2)
             z3 = multi((-1) ** i, power(int(i + 1),neg(z)))
             z4 = add(z1,z3)
-            if mod(subt(z4,multi(0.00999,z4))) <= mod(z1) <= mod(add(z4,multi(0.00999,z4)))   :
+            if Decimal(mod(subt(z4,multi(0.00000999,z4)))) <= Decimal(mod(z1)) <= Decimal(mod(add(z4,multi(0.00000999,z4))))   :
+                print(div(z4,subt(1, power(2, subt(1, z)))))
                 return div(z4,subt(1, power(2, subt(1, z)))) 
         return math.inf
     if Re(z) < 0 :
@@ -399,6 +403,7 @@ def zeta(z) :
         return z1
 
 def eta(z) :
+    #fix
     #Calculates the Dirichlet Eta Function
     #The input is a string in the form x + yi
     #The output is a string in the form x + yi
@@ -414,12 +419,12 @@ def eta(z) :
         return math.inf
     elif Re(z) >= 0 :
         z1 = power(1,neg(z))
-        for i in range(2,100000) :
+        for i in range(2,10000000) :
             z2 = multi((-1) ** (i - 1), power(i,neg(z)))
             z1 = add(z1,z2)
             z3 = multi((-1) ** i, power(int(i + 1),neg(z)))
             z4 = add(z1,z3)
-            if mod(subt(z4,multi(0.00999,z4))) <= mod(z1) <= mod(add(z4,multi(0.00999,z4)))   :
+            if mod(subt(z4,multi(0.0000999,z4))) <= mod(z1) <= mod(add(z4,multi(0.0000999,z4)))   :
                 return z4
         return math.inf
     if Re(z) < 0 :
@@ -427,6 +432,7 @@ def eta(z) :
         return multi(z1,subt(1, power(2, subt(1, z))))
 
 def F(z,n) :
+    #fix
     #Calculates the Polylogarithm function
     z1 = div(z,power(1,n))
     for i in range(2,1000000) :
@@ -439,15 +445,18 @@ def F(z,n) :
     return math.inf
 
 def siegel(t) :
-    z = I(0.25, 0.5 * t)
-    z1 = arg(gamma(z)) - 0.5 * t * math.log(math.pi)
+    #Calculates the Riemann siegel theta function
+    z = I(Decimal(0.25), Decimal(0.5 * t))
+    z1 = Decimal(arg(gamma(z))) - 0.5 * t * Decimal(math.log(Decimal(math.pi)))
     return z1
 
 def Z(t) :
+    #Calculates the Riemann siegel function
     z = I(0.5, t)
-    z1 = multi(eul(1,siegel(t))), zeta(z))
+    z1 = multi(eul(1,siegel(t)), zeta(z))
     return z1
 
 def B(n) :
+    #calculates the bernoulli numbers
     z1 = multi(power(-1,add(n,1)),multi(n,zeta(subt(1,n))))
     return z1
