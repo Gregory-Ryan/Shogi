@@ -390,12 +390,12 @@ def zeta(z) :
         return math.inf
     elif Re(z) >= 0 :
         z1 = power(1,neg(z))
-        for i in range(2,10000000) :
+        for i in range(2,1000000) :
             z2 = multi((-1) ** (i - 1), power(i,neg(z)))
             z1 = add(z1,z2)
             z3 = multi((-1) ** i, power(int(i + 1),neg(z)))
             z4 = add(z1,z3)
-            if Decimal(mod(subt(z4,multi(0.00000999,z4)))) <= Decimal(mod(z1)) <= Decimal(mod(add(z4,multi(0.00000999,z4))))   :
+            if Decimal(mod(subt(z4,multi(0.0000999,z4)))) <= Decimal(mod(z1)) <= Decimal(mod(add(z4,multi(0.0000999,z4))))   :
                 return div(z4,subt(1, power(2, subt(1, z)))) 
         return math.inf
     if Re(z) < 0 :
