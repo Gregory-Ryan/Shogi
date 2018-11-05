@@ -495,3 +495,13 @@ def lerch(z,s,a) :
             if mod(subt(z4,multi(0.00000000999,z4))) <= mod(z1) <= mod(add(z4,multi(0.00000000999,z4)))   :
                 return z4 
         return math.inf
+
+def totient(n) :
+    counter = 0
+    for i in range(1, n) :
+        for j in range(1,n) :
+            if i % j == 0 and n % j == 0 :
+                gcd = j
+        if gcd == 1 :
+            counter += 1
+    return counter
