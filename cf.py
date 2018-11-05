@@ -505,3 +505,17 @@ def totient(n) :
         if gcd == 1 :
             counter += 1
     return counter
+
+def div_sig(k,n):
+    z1 = 0
+    for i in range(1,n + 1) :
+        if n % i == 0 :
+            z1 +=i ** k
+    return z1
+
+def is_prime(n) :
+    z1 = (n * div_sig(1,n) - 2) % totient(n)
+    if z1 == 0 and n != 4 and n != 6 and n != 22 :
+        return 'true'
+    else:
+        return 'false'
