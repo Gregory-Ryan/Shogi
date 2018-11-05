@@ -206,8 +206,8 @@ def log(z) :
 def eul(r,t) :
     #r is the radius and t is the angle in radians(they must be real)
     #The output is a string in the form x + yi
-    u =Decimal(r) * Decimal(math.cos(t))
-    v = Decimal(r) * Decimal(math.sin(t))
+    u = Decimal(float(r) * math.cos(t))
+    v = Decimal(float(r) * math.sin(t))
     z1 = I(u,v)
     return z1
 
@@ -440,7 +440,9 @@ def F(z,n) :
         z1 = add(z1,z2)
         z3 = div(power(z, i + 1), power(int(i + 1),n))
         z4 = add(z1,z3)
-        if mod(subt(z4,multi(0.00000000999,z4))) <= mod(z1) <= mod(add(z4,multi(0.00000000999,z4)))   :
+        if mod(z1) > 10 ** 130 :
+            return math.inf
+        elif mod(subt(z4,multi(0.00000000999,z4))) <= mod(z1) <= mod(add(z4,multi(0.00000000999,z4)))   :
             return z4 
     return math.inf
 
