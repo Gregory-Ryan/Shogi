@@ -519,3 +519,54 @@ def is_prime(n) :
         return 'true'
     else:
         return 'false'
+
+def tau(n) :
+    if n > 0 :
+        z1 = 0
+        for i in range(1, n) :
+            z1 += div_sig(5,i) * div_sig(5, n - i)
+        z2 = 65 * div_sig(11,n) / 756 + 691 * div_sig(5,n) / 756 - 691 * z1 / 3
+        return z2
+
+def N(p) :
+    n = totient(p)
+    z = []
+    for p1 in range(2, n) :
+        if is_prime(p1) == 'true' :
+            z.append(p1)
+    for g in range(2,100) :
+        e = 0
+        for j in z :
+            q = n / j
+            f = int(g ** q)
+            if q % 1 == 0 and (f - 1) % p == 0 :
+                e += 1
+                break                       
+        if e != 0 :
+            continue
+        else:
+            return g
+
+def X(k,j,n) :
+    if k == 1 or n == 1:
+        return 1
+    gen = N(j)
+    X_n = []
+    F = []
+    next = []
+    z = totient_num(j)
+    for i in range(1,totient(j) + 1) :
+        z1 = eul(1, i * 2 * math.pi / totient(j))
+        X_n.append(z1)
+        z4 = X_n
+    for q in range(1,len(z) + 1 ) :
+        w = z[len(z)-q]
+        if len(z)-q != gen :
+            next.append(w)
+        else:
+            next.append(z[1])
+        print(next)
+    for v in next:
+        F += [power(X_n[k],v)]
+        print(F)
+    return F[n - 1]
