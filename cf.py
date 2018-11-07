@@ -506,11 +506,23 @@ def totient(n) :
             counter += 1
     return counter
 
+def totient_num(n) :
+    counter = 0
+    gcd = 1
+    value = []
+    for i in range(1, n) :
+        for j in range(1,n) :
+            if i % j == 0 and n % j == 0 :
+                gcd = j
+        if gcd == 1 :
+            value.append(i)
+    return value
+
 def div_sig(k,n):
     z1 = 0
     for i in range(1,n + 1) :
         if n % i == 0 :
-            z1 +=i ** k
+            z1 += i ** k
     return z1
 
 def is_prime(n) :
@@ -548,25 +560,32 @@ def N(p) :
             return g
 
 def X(k,j,n) :
-    if k == 1 or n == 1:
+    if j == 1 :
         return 1
     gen = N(j)
     X_n = []
     F = []
-    next = []
     z = totient_num(j)
-    for i in range(1,totient(j) + 1) :
-        z1 = eul(1, i * 2 * math.pi / totient(j))
+    z.reverse()
+    z = z[0:len(z)-1]
+    z.insert(1,1)
+    for i in z :
+        z1 = power(eul(1,2 * math.pi / totient(j)),i)
         X_n.append(z1)
-        z4 = X_n
-    for q in range(1,len(z) + 1 ) :
-        w = z[len(z)-q]
-        if len(z)-q != gen :
-            next.append(w)
-        else:
-            next.append(z[1])
-        print(next)
-    for v in next:
-        F += [power(X_n[k],v)]
-        print(F)
-    return F[n - 1]
+    for v in z:
+        F.append(power(X_n[k-1],v))
+    for w in range(1,n + 1) :
+        if not w in z:
+            F.insert(w - 1, 0)
+    return F[n-1]
+        
+def L(k,s,X1) :
+    z1 = X(k,X1,1)
+    for i in range(2,10000000) :
+        z2 = div(X(k,X1,i),power(i,s))
+        z1 = add(z1,z2)
+        z3 = div(X(k,X1,(i + 1)),power((i + 1),s))
+        z4 = add(z1,z3)
+        if mod(subt(z4,multi(0.00000000999,z4))) <= mod(z1) <= mod(add(z4,multi(0.00000000999,z4)))   :
+            return z4
+    return math.inf
