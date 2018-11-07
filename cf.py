@@ -525,6 +525,13 @@ def div_sig(k,n):
             z1 += i ** k
     return z1
 
+def divisors(n):
+    z1 = []
+    for i in range(1,n + 1) :
+        if n % i == 0 :
+            z1.append(i)
+    return z1
+
 def is_prime(n) :
     z1 = (n * div_sig(1,n) - 2) % totient(n)
     if z1 == 0 and n != 4 and n != 6 and n != 22 :
