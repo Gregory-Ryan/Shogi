@@ -403,7 +403,6 @@ def zeta(z) :
         return z1
 
 def eta(z) :
-    #fix
     #Calculates the Dirichlet Eta Function
     #The input is a string in the form x + yi
     #The output is a string in the form x + yi
@@ -432,7 +431,6 @@ def eta(z) :
         return multi(z1,subt(1, power(2, subt(1, z))))
 
 def F(z,n) :
-    #fix
     #Calculates the Polylogarithm function
     z1 = div(z,power(1,n))
     for i in range(2,1000000) :
