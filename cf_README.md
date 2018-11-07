@@ -194,13 +194,13 @@ The input are positive integers and it returns integer.
 Returns the Dirichlet L function in form of x + yi. ( mod k, index X1)
 The input are positive integers(k,X1) and a string(s) and it returns string.
 
-# num_t.H_n(n)
+# cf.H_n(n)
 Returns the harmonic sum from 1 to n.
 The input is a integer and the output is a float.
 
-# num_t.polygamma(n)
+# cf.polygamma(n)
 Returns the polygamma function of a real number.
 The input is a integer and the output is a float.
 
-# num_t.euler_c
+# cf.euler_c
 The Euler-Mascheroni constant. 
