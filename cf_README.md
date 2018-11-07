@@ -172,7 +172,7 @@ The input are positive integers and it returns integer.
 
 # cf.divisors(n)
 Returns the divisors of a number.
-The input is a positive integer and it returns integer.
+The input is a positive integer and it returns list.
 
 # cf.is_prime(n)
 Returns true if the number is a prime and false if not.
