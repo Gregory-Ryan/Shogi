@@ -145,3 +145,51 @@ The input is a float and it returns a string.
 # cf.B(n)
 Returns the bernoulli numbers in form of x + yi. 
 The input is a string and it returns a string.
+
+# cf.lamba(z)
+Returns the Dirichlet Lamba function in form of x + yi.
+The input is a string and it returns a string.
+
+# cf.beta(z)
+Returns the Dirichlet Beta function in form of x + yi.
+The input is a string and it returns a string.
+
+# cf.lerch(z,s,a)
+Returns the Lerch Transcendent in form of x + yi.
+The input are strings and it returns a string.
+
+# cf.totient(n) 
+Returns the totient of a number.
+The input is a positive integer and it returns integer.
+
+# cf.totient_num(n)
+Returns the totative of a number.
+The input is a positive integer and it returns list.
+
+# cf.div_sig(k,n)
+Returns the Divisor function of a number.
+The input are positive integers and it returns integer.
+
+# cf.divisors(n)
+Returns the divisors of a number.
+The input is a positive integer and it returns integer.
+
+# cf.is_prime(n)
+Returns true if the number is a prime and false if not.
+The input is a positive integer and it returns string.
+
+# cf.tau(n)
+Returns the Tau function of a number.
+The input is a positive integer and it returns integer.
+
+# cf.N(p)
+Reurns the group of units in the ring of integers modulo p.
+The input is a positive integer and it returns integer.
+
+# cf.X(k,j,n)
+Returns the Dirichlet Characters of a number. ( mod k, index j)
+The input are positive integers and it returns integer.
+
+# cf.L(k,s,X1)
+Returns the Dirichlet L function in form of x + yi. ( mod k, index X1)
+The input are positive integers(k,X1) and a string(s) and it returns string.
