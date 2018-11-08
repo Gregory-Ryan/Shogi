@@ -613,3 +613,7 @@ def polygamma(n) :
     return z3
     
 euler_c = - polygamma(1)
+
+def pi(n) :
+    z1 = n / math.log(n)
+    return z1
