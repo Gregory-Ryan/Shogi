@@ -204,3 +204,7 @@ The input is a integer and the output is a float.
 
 # cf.euler_c
 The Euler-Mascheroni constant. 
+
+# cf.pi(n)
+Returns the Prime Counting function of a number.
+The input is a positive integer and it returns integer.
