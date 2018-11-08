@@ -1,7 +1,7 @@
 import math
 from decimal import Decimal
 
-def I(x,y) :
+def I_s(x,y) :
     #Takes the Re(z) and the Im(z) and turns it into a complex number(repersented by a string)
     #x is the Re(z) and y is the Im(z)
     #The output is a string in the form x + yi
@@ -23,7 +23,7 @@ def I(x,y) :
             z = str(Decimal(x)) + " " + "+" + " " + str(Decimal(y)) + 'i'
     return z
 
-def conj(x,y) :
+def conj_s(x,y) :
     #Takes the Re(z) and the Im(z) and turns it into z_bar(repersented by a string)
     #x is the Re(z) and y is the Im(z)
     #The output is a string in the form x + yi
@@ -48,7 +48,7 @@ def conj(x,y) :
                 z = str(Decimal(x)) + " " + "+" + " " + "-" + str(Decimal(y)) + 'i'
     return z
 
-def Re(z) :
+def Re_s(z) :
     #Finds real part of a complex number
     #The input is a string in the form x + yi
     #The output is a string in the form x + yi
@@ -69,7 +69,7 @@ def Re(z) :
         zz = Decimal(z)
         return zz
     
-def Im(z) :
+def Im_s(z) :
     #Finds the imaginary part of a complex number
     #The input is a string in the form x + yi
     #The output is a string in the form x + yi
@@ -99,6 +99,24 @@ def Im(z) :
             return Decimal(sr22)
     else :
         return 0
+
+def I(x,y):
+    return (x,y)
+
+def Re(z) :
+    if type(z) != tuple:
+        z = (Re_s(z),Im_s(z))
+    (x,y) = z
+    return Decimal(x)
+
+def Im(z) :
+    if type(z) != tuple:
+        z = (Re_s(z),Im_s(z))
+    (x,y) = z
+    return Decimal(y)
+
+def conj(x,y) :
+    return (x,-y)
 
 def neg(z) :
     #Makes the complex number negitive
@@ -375,6 +393,7 @@ def gamma(z) :
         return math.inf
 
 def zeta(z) :
+    #fix
     #Calculates the Riemann zeta function 
     #The input is a string in the form x + yi
     #The output is a string in the form x + yi
@@ -390,12 +409,13 @@ def zeta(z) :
         return math.inf
     elif Re(z) >= 0 :
         z1 = power(1,neg(z))
-        for i in range(2,1000000) :
+        for i in range(2,10000000) :
             z2 = multi((-1) ** (i - 1), power(i,neg(z)))
             z1 = add(z1,z2)
             z3 = multi((-1) ** i, power(int(i + 1),neg(z)))
             z4 = add(z1,z3)
             if Decimal(mod(subt(z4,multi(0.0000999,z4)))) <= Decimal(mod(z1)) <= Decimal(mod(add(z4,multi(0.0000999,z4))))   :
+                print(div(z4,subt(1, power(2, subt(1, z)))))
                 return div(z4,subt(1, power(2, subt(1, z)))) 
         return math.inf
     if Re(z) < 0 :
@@ -403,6 +423,7 @@ def zeta(z) :
         return z1
 
 def eta(z) :
+    #fix
     #Calculates the Dirichlet Eta Function
     #The input is a string in the form x + yi
     #The output is a string in the form x + yi
@@ -431,12 +452,13 @@ def eta(z) :
         return multi(z1,subt(1, power(2, subt(1, z))))
 
 def F(z,n) :
+    #fix
     #Calculates the Polylogarithm function
     z1 = div(z,power(1,n))
     for i in range(2,1000000) :
         z2 = div(power(z,i),power(i,n))
         z1 = add(z1,z2)
-        z3 = div(power(z, i + 1), power(int(i + 1),n))
+        z3 = div(power(z, Decimal(i + 1)), power(Decimal(i + 1),n))
         z4 = add(z1,z3)
         if mod(z1) > 10 ** 130 :
             return math.inf
@@ -446,8 +468,8 @@ def F(z,n) :
 
 def siegel(t) :
     #Calculates the Riemann siegel theta function
-    z = I(0.25, 0.5 * t)
-    z1 = arg(gamma(z)) - Decimal(0.5 * t * math.log(math.pi))
+    z = I(Decimal(0.25), Decimal(0.5 * t))
+    z1 = Decimal(arg(gamma(z))) - 0.5 * t * Decimal(math.log(Decimal(math.pi)))
     return z1
 
 def Z(t) :
@@ -496,6 +518,7 @@ def lerch(z,s,a) :
 
 def totient(n) :
     counter = 0
+    gcd = 1
     for i in range(1, n) :
         for j in range(1,n) :
             if i % j == 0 and n % j == 0 :
