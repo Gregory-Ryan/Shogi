@@ -616,4 +616,6 @@ euler_c = - polygamma(1)
 
 def pi(n) :
     z1 = n / math.log(n)
-    return z1
+    z2 = 1.25506 * n / math.log(n)
+    z3 = (z1 + z2 ) / 2
+    return z3
