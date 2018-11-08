@@ -207,4 +207,4 @@ The Euler-Mascheroni constant.
 
 # cf.pi(n)
 Returns the Prime Counting function of a number.
-The input is a positive integer and it returns integer.
+The input is a positive integer and it returns float.
