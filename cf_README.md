@@ -2,27 +2,9 @@
 ## cf.add(z,z1)
 Returns the addition of two complex numbers in the form of (Re,Im).
 The input is two tuples or strings(x + iy) and it returns a tuple.
-## cf.conj(x,y)
-Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + -yi. 
-The input is two Decimals and it returns a tuple.
-## cf.conj_s(x,y)
-Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + -yi. 
-The input is two Decimals and it returns a string(x + iy).
 ## cf.div(z,z1)
 Returns the a complex number divied by complex number in the form of (Re,Im). 
 The input is two tuples or strings(x + iy) and it returns a tuple.
-## cf.I(x,y)
-Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of (Re,Im). 
-The input is two Decimals and it returns a tuple.
-## cf.Im(z)
-Returns the Imaginary part of a complex number.
-The input is a tuple or a string(x + iy) and it returns a Decimal.
-## cf.Im_s(z)
-Returns the Imaginary part of a complex number.
-The input is a string(x + iy) and it returns a Decimal.
-## cf.I_s(x,y)
-Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + yi. 
-The input is two Decimals and it returns a string(x + iy).
 ## cf.multi(z,z1)
 Returns the product of two complex numbers in the form of (Re,Im). 
 The input is two tuples or strings(x + iy) and it returns a tuple.
@@ -32,12 +14,6 @@ The input is a tuple or a string(x + iy) and it returns a tuple.
 ## cf.power(z,p)
 Returns the complex number to the power of complex number in the form of (Re,Im). (z ** p)
 The input is two tuples or strings(x + iy) and it returns a tuple.
-## cf.Re(z)
-Returns the Real part of a complex number.
-The input is a tuple or a string(x + iy) and it returns a Decimal.
-## cf.Re_s(z)
-Returns the Real part of a complex number.
-The input is a string(x + iy) and it returns a Decimal.
 ## cf.sqr(z)
 Returns the square of a complex number in the form of (Re,Im). 
 The input is a tuple or a string(x + iy) and it returns a tuple.
@@ -55,12 +31,30 @@ The input is a tuple or a string(x + iy) and it returns a Decimal.
 ## cf.Arg(z)
 Returns the principal argument of a complex number in radians. 
 The input is a tuple or a string(x + iy) and it returns a Decimal.
+## cf.conj(x,y)
+Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + -yi. 
+The input is two Decimals and it returns a tuple.
+## cf.conj_s(x,y)
+Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + -yi. 
+The input is two Decimals and it returns a string(x + iy).
 ## cf.eul(r,t)
 Takes a input in polar form (radius,angle(radians)) and returns a complex number in the form of (Re,Im).
 The input is two Decimals and it returns a tuple.
 ## cf.eul_c(r,z)
 Takes a input in the form of (r,z) and returns a complex number in the form of (Re,Im). (r*e**(z*i))
 The input is two tuples or strings(x + iy) and it returns a tuple.
+## cf.I(x,y)
+Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of (Re,Im). 
+The input is two Decimals and it returns a tuple.
+## cf.Im(z)
+Returns the Imaginary part of a complex number.
+The input is a tuple or a string(x + iy) and it returns a Decimal.
+## cf.Im_s(z)
+Returns the Imaginary part of a complex number.
+The input is a string(x + iy) and it returns a Decimal.
+## cf.I_s(x,y)
+Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + yi. 
+The input is two Decimals and it returns a string(x + iy).
 ## cf.log(z)
 Returns the logarithm of a complex number in the form of (Re,Im). 
 The input is a tuple or a string(x + iy) and it returns a tuple.
@@ -70,6 +64,12 @@ The input is a tuple or a string(x + iy) and it returns a tuple.
 ## cf.mod(z)
 Returns the norm/magnitude/modulus of a complex number. 
 The input is a tuple or a string(x + iy) and it returns a Decimal.
+## cf.Re(z)
+Returns the Real part of a complex number.
+The input is a tuple or a string(x + iy) and it returns a Decimal.
+## cf.Re_s(z)
+Returns the Real part of a complex number.
+The input is a string(x + iy) and it returns a Decimal.
 
 # Complex Trigonometry
 ## cf.cos(z)
