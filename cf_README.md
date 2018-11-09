@@ -164,7 +164,7 @@ The input is a Decimal and it returns a Decimal.
 Returns the Tau function of a number.
 The input is a positive integer and it returns integer.
 ## cf.totient(n) 
-Returns the totient of a number.
+Returns the Totient function of a number.
 The input is a positive integer and it returns integer.
 ## cf.totient_num(n)
 Returns the totatives of a number.
