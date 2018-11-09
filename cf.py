@@ -1,10 +1,11 @@
 import math
 from decimal import Decimal
 
-def I_s(x,y) :
+def I_s(z) :
     #Takes the Re(z) and the Im(z) and turns it into a complex number(repersented by a string)
     #x is the Re(z) and y is the Im(z)
     #The output is a string in the form x + yi
+    (x,y) = z
     if y == 0 :
         z = str(Decimal(x))
     elif x == 0 :
@@ -23,10 +24,11 @@ def I_s(x,y) :
             z = str(Decimal(x)) + " " + "+" + " " + str(Decimal(y)) + 'i'
     return z
 
-def conj_s(x,y) :
+def conj_s(z) :
     #Takes the Re(z) and the Im(z) and turns it into z_bar(repersented by a string)
     #x is the Re(z) and y is the Im(z)
     #The output is a string in the form x + yi
+    (x,y) = z
     if y == 0 :
         z = str(Decimal(x))
     elif x == 0 :
