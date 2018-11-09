@@ -101,7 +101,7 @@ def Im_s(z) :
         return 0
 
 def I(x,y):
-    return (x,y)
+    return (Decimal(x),Decimal(y))
 
 def Re(z) :
     if type(z) != tuple:
