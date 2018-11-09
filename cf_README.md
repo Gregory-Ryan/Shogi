@@ -1,34 +1,34 @@
 # cf.I_s(x,y)
 Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + yi. 
-The input is two floats and it returns a string.
+The input is two Decimals and it returns a string.
 
 # cf.conj_s(x,y)
 Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + -yi. 
-The input is two floats and it returns a string.
+The input is two Decimals and it returns a string.
 
 # cf.Re_s(z)
 Returns the Real part of a complex number.
-The input is a string and it returns a float.
+The input is a string and it returns a Decimal.
 
 # cf.Im_s(z)
 Returns the Imaginary part of a complex number.
-The input is a string and it returns a float.
+The input is a string and it returns a Decimal.
 
 # cf.I(x,y)
 Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of (Re,Im). 
-The input is two floats and it returns a tuple.
+The input is two Decimals and it returns a tuple.
 
 # cf.conj(x,y)
 Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + -yi. 
-The input is two floats and it returns a tuple.
+The input is two Decimals and it returns a tuple.
 
 # cf.Re(z)
 Returns the Real part of a complex number.
-The input is a tuple and it returns a float.
+The input is a tuple and it returns a Decimal.
 
 # cf.Im(z)
 Returns the Imaginary part of a complex number.
-The input is a tuple and it returns a float.
+The input is a tuple and it returns a Decimal.
 
 # cf.neg(z)
 Returns the negative of a complex number in the form of -x + -yi.
@@ -52,15 +52,15 @@ The input is a tuple and it returns a tuple.
 
 # cf.Arg(z)
 Returns the principal argument of a complex number in radians. 
-The input is a tuple and it returns a float.
+The input is a tuple and it returns a Decimal.
 
 # cf.arg(z)
 Returns the argument of a complex number in radians. 
-The input is a tuple and it returns a float.
+The input is a tuple and it returns a Decimal.
 
 # cf.mod(z)
 Returns the norm/magnitude/modulus of a complex number. 
-The input is a tuple and it returns a float.
+The input is a tuple and it returns a Decimal.
 
 # cf.Log(z)
 Returns the principal logarithm of a complex number in the form of (Re,Im). 
@@ -72,7 +72,7 @@ The input is a tuple and it returns a tuple.
 
 # cf.eul(r,t)
 Takes a input in polar form (radius,angle(radians)) and returns a complex number in the form of (Re,Im).
-The input is two floats and it returns a tuple.
+The input is two Decimals and it returns a tuple.
 
 # cf.eul_c(r,z)
 Takes a input in the form of (r,z) and returns a complex number in the form of (Re,Im). (r*e**(z*i))
@@ -152,11 +152,11 @@ The input is two tuples and it returns a tuple.
 
 # cf.siegel(t)
 Returns the Riemann-Siegel theta function of a real number. 
-The input is a float and it returns a float.
+The input is a Decimal and it returns a Decimal.
 
 # cf.Z(t)
 Returns the Riemann-Siegel Z function of a real number in the form of (Re,Im). 
-The input is a float and it returns a tuple.
+The input is a Decimal and it returns a tuple.
 
 # cf.B(n)
 Returns the bernoulli numbers in form of (Re,Im). 
@@ -224,4 +224,3 @@ The Euler-Mascheroni constant.
 # cf.pi(n)
 Returns the Prime Counting function of a number.
 The input is a positive integer and it returns float.
-
