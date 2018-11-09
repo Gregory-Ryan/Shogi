@@ -138,7 +138,7 @@ Returns the harmonic sum from 1 to n.
 The input is a integer and the output is a float.
 ## cf.is_prime(n)
 Returns true if the number is a prime and false if not.
-The input is a positive integer and it returns tuple.
+The input is a positive integer and it returns string.
 ## cf.L(k,s,X1)
 Returns the Dirichlet L function in form of (Re,Im). ( mod k, index X1)
 The input are positive integers(k,X1) and a tuple or a string(x + iy)(s) and it returns tuple.
