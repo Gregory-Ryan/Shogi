@@ -41,6 +41,9 @@ The input is a string and it returns a Decimal.
 ## cf.sqr(z)
 Returns the square of a complex number in the form of (Re,Im). 
 The input is a tuple and it returns a tuple.
+## cf.sqrt(z)
+Returns the square root of a complex number in the form of (Re,Im). 
+The input is a tuple and it returns a tuple.
 ## cf.subt(z,z1)
 Returns the subtraction of two complex numbers in the form of (Re,Im). (z - z1)
 The input is two tuples and it returns a tuple.
