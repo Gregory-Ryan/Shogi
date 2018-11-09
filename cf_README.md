@@ -3,7 +3,7 @@
 Returns the addition of two complex numbers in the form of (Re,Im).
 The input is two tuples or strings(x + iy) and it returns a tuple.
 ## cf.div(z,z1)
-Returns the a complex number divied by complex number in the form of (Re,Im). 
+Returns the a complex number divided by complex number in the form of (Re,Im). 
 The input is two tuples or strings(x + iy) and it returns a tuple.
 ## cf.multi(z,z1)
 Returns the product of two complex numbers in the form of (Re,Im). 
