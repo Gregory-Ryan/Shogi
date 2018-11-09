@@ -1,55 +1,6 @@
 import math
 from decimal import Decimal
 
-def I_s(z) :
-    #Takes the Re(z) and the Im(z) and turns it into a complex number(repersented by a string)
-    #x is the Re(z) and y is the Im(z)
-    #The output is a string in the form x + yi
-    (x,y) = z
-    if y == 0 :
-        z = str(Decimal(x))
-    elif x == 0 :
-        if y == 1 :
-            z = 'i'
-        elif y == -1 :
-            z = '-i'
-        else :
-            z = str(Decimal(y)) + 'i'
-    else : 
-        if y == 1 :
-            z = str(Decimal(x)) + " " + "+" + " " + 'i'
-        elif y == -1 :
-            z = str(Decimal(x)) + " " + "+" + " " + '-i'
-        else :
-            z = str(Decimal(x)) + " " + "+" + " " + str(Decimal(y)) + 'i'
-    return z
-
-def conj_s(z) :
-    #Takes the Re(z) and the Im(z) and turns it into z_bar(repersented by a string)
-    #x is the Re(z) and y is the Im(z)
-    #The output is a string in the form x + yi
-    (x,y) = z
-    if y == 0 :
-        z = str(Decimal(x))
-    elif x == 0 :
-        if y == 1 :
-            z = '-i'
-        elif y == -1 :
-            z = 'i'
-        else :
-            z = '-' + str(Decimal(x)) + 'i'
-    else :
-        if y == 1 :
-            z = str(Decimal(x)) + " " + "" + " " + '-i'
-        elif y == -1 :
-            z = str(Decimal(x)) + " " + "" + " " + 'i'
-        else :
-            if y[0,1] == '-' :
-                z = str(Decimal(x)) + " " + "+" + " " + str(Decimal(y)) + 'i'
-            else:
-                z = str(Decimal(x)) + " " + "+" + " " + "-" + str(Decimal(y)) + 'i'
-    return z
-
 def Re_s(z) :
     #Finds real part of a complex number
     #The input is a string in the form x + yi
@@ -119,6 +70,59 @@ def Im(z) :
 
 def conj(x,y) :
     return (x,-y)
+
+def I_s(z) :
+    #Takes the Re(z) and the Im(z) and turns it into a complex number(repersented by a string)
+    #x is the Re(z) and y is the Im(z)
+    #The output is a string in the form x + yi
+    if not type(z) == tuple:
+        z = (Re_s(z),Im_s(z))
+    (x,y) = z
+    if y == 0 :
+        z = str(Decimal(x))
+    elif x == 0 :
+        if y == 1 :
+            z = 'i'
+        elif y == -1 :
+            z = '-i'
+        else :
+            z = str(Decimal(y)) + 'i'
+    else : 
+        if y == 1 :
+            z = str(Decimal(x)) + " " + "+" + " " + 'i'
+        elif y == -1 :
+            z = str(Decimal(x)) + " " + "+" + " " + '-i'
+        else :
+            z = str(Decimal(x)) + " " + "+" + " " + str(Decimal(y)) + 'i'
+    return z
+
+def conj_s(z) :
+    #Takes the Re(z) and the Im(z) and turns it into z_bar(repersented by a string)
+    #x is the Re(z) and y is the Im(z)
+    #The output is a string in the form x + yi
+    if not type(z) == tuple:
+        z = (Re_s(z),Im_s(z))
+    (x,y) = z
+    if y == 0 :
+        z = str(Decimal(x))
+    elif x == 0 :
+        if y == 1 :
+            z = '-i'
+        elif y == -1 :
+            z = 'i'
+        else :
+            z = '-' + str(Decimal(x)) + 'i'
+    else :
+        if y == 1 :
+            z = str(Decimal(x)) + " " + "" + " " + '-i'
+        elif y == -1 :
+            z = str(Decimal(x)) + " " + "" + " " + 'i'
+        else :
+            if y[0,1] == '-' :
+                z = str(Decimal(x)) + " " + "+" + " " + str(Decimal(y)) + 'i'
+            else:
+                z = str(Decimal(x)) + " " + "+" + " " + "-" + str(Decimal(y)) + 'i'
+    return z
 
 def neg(z) :
     #Makes the complex number negitive
