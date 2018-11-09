@@ -167,7 +167,7 @@ The input is a positive integer and it returns integer.
 Returns the totient of a number.
 The input is a positive integer and it returns integer.
 ## cf.totient_num(n)
-Returns the totative of a number.
+Returns the totatives of a number.
 The input is a positive integer and it returns list.
 ## cf.X(k,j,n)
 Returns the Dirichlet Characters of a number. ( mod k, index j)
