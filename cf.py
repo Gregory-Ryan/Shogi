@@ -261,6 +261,10 @@ def div(z,z1) :
     z2 = eul(r,t)
     return z2
 
+def sqrt(z) :
+    z1 = power(z,0.5)
+    return z1
+
 def sin(z) :
     #Finds the sine of a complex number
     #The input is a string in the form x + yi
