@@ -163,7 +163,7 @@ Returns the bernoulli numbers in form of (Re,Im).
 The input is a tuple and it returns a tuple.
 
 # cf.lamba(z)
-Returns the Dirichlet Lamba function in form of (Re,Im).
+Returns the Dirichlet Lambda function in form of (Re,Im).
 The input is a tuple and it returns a tuple.
 
 # cf.beta(z)
