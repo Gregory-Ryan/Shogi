@@ -419,7 +419,6 @@ def zeta(z) :
             z3 = multi((-1) ** i, power(int(i + 1),neg(z)))
             z4 = add(z1,z3)
             if Decimal(mod(subt(z4,multi(0.0000999,z4)))) <= Decimal(mod(z1)) <= Decimal(mod(add(z4,multi(0.0000999,z4))))   :
-                print(div(z4,subt(1, power(2, subt(1, z)))))
                 return div(z4,subt(1, power(2, subt(1, z)))) 
         return math.inf
     if Re(z) < 0 :
