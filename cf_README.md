@@ -72,6 +72,42 @@ Returns the Real part of a complex number.
 The input is a string(x + yi) and it returns a Decimal.
 
 # Complex Trigonometry
+## cf.acos(z)
+Returns the inverse cosine of a complex number in the form of (Re,Im). 
+The input is a tuple or a string(x + yi) and it returns a tuple.
+## cf.acosh(z)
+Returns the inverse hyperbolic cosine of a complex number in the form of (Re,Im). 
+The input is a tuple or a string(x + yi) and it returns a tuple.
+## cf.acot(z)
+Returns the inverse cotangent of a complex number in the form of (Re,Im). 
+The input is a tuple or a string(x + yi) and it returns a tuple.
+## cf.acoth(z)
+Returns the inverse hyperbolic cotangent of a complex number in the form of (Re,Im). 
+The input is a tuple or a string(x + yi) and it returns a tuple.
+## cf.acsc(z)
+Returns the inverse cosecant of a complex number in the form of (Re,Im). 
+The input is a tuple or a string(x + yi) and it returns a tuple.
+## cf.acsch(z)
+Returns the inverse hyperbolic cosecant of a complex number in the form of (Re,Im). 
+The input is a tuple or a string(x + yi) and it returns a tuple.
+## cf.asec(z)
+Returns the inverse secant of a complex number in the form of (Re,Im). 
+The input is a tuple or a string(x + yi) and it returns a tuple.
+## cf.asech(z)
+Returns the inverse hyperbolic secant of a complex number in the form of (Re,Im). 
+The input is a tuple or a string(x + yi) and it returns a tuple.
+## cf.asin(z)
+Returns the inverse sine of a complex number in the form of (Re,Im). 
+The input is a tuple or a string(x + yi) and it returns a tuple.
+## cf.asinh(z)
+Returns the inverse hyperbolic sine of a complex number in the form of (Re,Im). 
+The input is a tuple or a string(x + yi) and it returns a tuple.
+## cf.atan(z)
+Returns the inverse tangent of a complex number in the form of (Re,Im). 
+The input is a tuple or a string(x + yi) and it returns a tuple.
+## cf.atanh(z)
+Returns the inverse hyperbolic tangent of a complex number in the form of (Re,Im). 
+The input is a tuple or a string(x + yi) and it returns a tuple.
 ## cf.cos(z)
 Returns the cosine of a complex number in the form of (Re,Im). 
 The input is a tuple or a string(x + yi) and it returns a tuple.
