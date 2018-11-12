@@ -383,6 +383,58 @@ def coth(z) :
     z1 = div(1,u)
     return z1
 
+def acos(z) :
+    if mod(Re(z)) == 1 :
+        return div(math.pi,2)
+    t = add(div(math.pi,2),multi('i',Log(add(multi('i',z),sqrt(subt(1,sqr(z)))))))
+    return t
+
+def asin(z) :
+    if mod(Re(z)) == 1 :
+        return 0
+    t = multi('-i',Log(add(multi('i',z),sqrt(subt(1,sqr(z))))))
+    return t
+
+def atan(z) :
+    t = multi('0.5i', subt(Log(subt(1,multi('i',z))),Log(add(1,multi('i',z)))))
+    return t
+
+def acot(z) :
+    t = atan(div(1,z))
+    return t
+
+def acsc(z) :
+    t = asin(div(1,z))
+    return t
+
+def asec(z) :
+    t = acos(div(1,z))
+    return t
+
+def acosh(z) :
+    t = Log(add(z,sqrt(subt(sqr(z),1))))
+    return t
+
+def asinh(z) :
+    t = multi('i',asin(multi('-i',z)))
+    return t
+
+def atanh(z) :
+    t = multi('-i',atan(multi('i',z)))
+    return t
+
+def acoth(z) :
+    t = atanh(div(1,z))
+    return t
+
+def acsch(z) :
+    t = asinh(div(1,z))
+    return t
+
+def asech(z) :
+    t = acosh(div(1,z))
+    return t
+
 def gamma(z) :
     #Calculates the Gamma Function
     #The input is a string in the form x + yi
