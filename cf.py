@@ -53,23 +53,23 @@ def Im_s(z) :
     else :
         return 0
 
-def I(x,y):
-    return (Decimal(x),Decimal(y))
-
 def Re(z) :
-    if type(z) != tuple:
+    if not type(z) == tuple:
         z = (Re_s(z),Im_s(z))
     (x,y) = z
     return Decimal(x)
 
 def Im(z) :
-    if type(z) != tuple:
+    if not type(z) == tuple:
         z = (Re_s(z),Im_s(z))
     (x,y) = z
     return Decimal(y)
 
-def conj(x,y) :
-    return (x,-y)
+def conj(z) :
+    return (Re(z),- Im(z))
+
+def I(z):
+    return (Re(z),Im(z))
 
 def I_s(z) :
     #Takes the Re(z) and the Im(z) and turns it into a complex number(repersented by a string)
@@ -127,7 +127,7 @@ def neg(z) :
     #The input is a string in the form x + yi
     x = Re(z)
     y = Im(z)
-    z1 = I(-x,-y)
+    z1 = (-x,-y)
     return z1
     
 def add(z,z1) :
@@ -140,7 +140,7 @@ def add(z,z1) :
     y1 = Im(z1)
     u = x + x1
     v = y + y1 
-    z2 = I(u,v)
+    z2 = (u,v)
     return z2
 
 def subt(z,z1) :
@@ -153,7 +153,7 @@ def subt(z,z1) :
     y1 = Im(z1)
     u = x - x1
     v = y - y1 
-    z2 = I(u,v)
+    z2 = (u,v)
     return z2
 
 def multi(z,z1) :
@@ -166,7 +166,7 @@ def multi(z,z1) :
     y1 = Im(z1)
     u = x * x1 - y * y1
     v = x1 * y + x * y1 
-    z2 = I(u,v)
+    z2 = (u,v)
     return z2
 
 def sqr(z) :
@@ -177,7 +177,7 @@ def sqr(z) :
     y = Im(z)
     u = x ** 2 - y ** 2
     v = 2 * x * y
-    z1 = I(u,v)
+    z1 = (u,v)
     return z1
 
 def Arg(z) :
@@ -213,7 +213,7 @@ def Log(z) :
     #The output is a string in the form x + yi
     u = math.log(mod(z))
     v = Arg(z)
-    z1 = I(u,v)
+    z1 = (u,v)
     return z1
 
 def log(z) :
@@ -222,7 +222,7 @@ def log(z) :
     #The output is a string in the form x + yi
     u = math.log(mod(z))
     v = arg(z)
-    z1 = I(u,v)
+    z1 = (u,v)
     return z1
 
 def eul(r,t) :
@@ -230,7 +230,7 @@ def eul(r,t) :
     #The output is a string in the form x + yi
     u = Decimal(float(r) * math.cos(t))
     v = Decimal(float(r) * math.sin(t))
-    z1 = I(u,v)
+    z1 = (u,v)
     return z1
 
 def eul_c(r,z) :
@@ -240,7 +240,7 @@ def eul_c(r,z) :
     y = Im(z)
     u = Decimal(math.exp(-y)) * Decimal(math.cos(x))
     v = Decimal(math.exp(-y)) * Decimal(math.sin(x))
-    z1 = I(u,v)
+    z1 = (u,v)
     z2 = multi(r,z1)
     return z2
 
@@ -475,6 +475,7 @@ def zeta(z) :
             z3 = multi((-1) ** i, power(int(i + 1),neg(z)))
             z4 = add(z1,z3)
             if Decimal(mod(subt(z4,multi(0.0000999,z4)))) <= Decimal(mod(z1)) <= Decimal(mod(add(z4,multi(0.0000999,z4))))   :
+                print(div(z4,subt(1, power(2, subt(1, z)))))
                 return div(z4,subt(1, power(2, subt(1, z)))) 
         return math.inf
     if Re(z) < 0 :
@@ -527,13 +528,13 @@ def F(z,n) :
 
 def siegel(t) :
     #Calculates the Riemann siegel theta function
-    z = I(Decimal(0.25), Decimal(0.5 * t))
+    z = (Decimal(0.25), Decimal(0.5 * t))
     z1 = Decimal(arg(gamma(z))) - 0.5 * t * Decimal(math.log(Decimal(math.pi)))
     return z1
 
 def Z(t) :
     #Calculates the Riemann siegel function
-    z = I(0.5, t)
+    z = (0.5, t)
     z1 = multi(eul(1,siegel(t)), zeta(z))
     return z1
 
