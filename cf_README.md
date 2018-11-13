@@ -34,7 +34,7 @@ The input is a tuple or a string(x + yi) and it returns a Decimal.
 ## cf.conj(x,y)
 Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + -yi. 
 The input is two Decimals and it returns a tuple.
-## cf.conj_s(x,y)
+## cf.conj_s(z)
 Takes the Real and Imaginary parts of a complex number and puts it in the form of x + -yi. 
 The input is a tuple and it returns a string(x + -yi).
 ## cf.eul(r,t)
