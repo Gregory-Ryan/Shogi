@@ -32,8 +32,8 @@ The input is a tuple or a string(x + yi) and it returns a Decimal.
 Returns the principal argument of a complex number in radians. 
 The input is a tuple or a string(x + yi) and it returns a Decimal.
 ## cf.conj(x,y)
-Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of (Re,Im). 
-The input is two Decimals and it returns a tuple.
+Takes the Re(x) and Im(y) parts of a complex number and puts it in the form of (Re,Im). 
+The input is string and it returns a tuple.
 ## cf.conj_s(z)
 Takes the Real and Imaginary parts of a complex number and puts it in the form of x + -yi. 
 The input is a tuple and it returns a string(x + -yi).
@@ -43,9 +43,9 @@ The input is two Decimals and it returns a tuple.
 ## cf.eul_c(r,z)
 Takes a input in the form of (r,z) and returns a complex number in the form of (Re,Im). (r*e**(z*i))
 The input is two tuples or strings(x + yi) and it returns a tuple.
-## cf.I(x,y)
-Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of (Re,Im). 
-The input is two Decimals and it returns a tuple.
+## cf.I(z)
+Takes the Re(z) and Im(z) parts of a complex number and puts it in the form of (Re,Im). 
+The input is string and it returns a tuple.
 ## cf.Im(z)
 Returns the Imaginary part of a complex number.
 The input is a tuple or a string(x + yi) and it returns a Decimal.
