@@ -32,7 +32,7 @@ The input is a tuple or a string(x + yi) and it returns a Decimal.
 Returns the principal argument of a complex number in radians. 
 The input is a tuple or a string(x + yi) and it returns a Decimal.
 ## cf.conj(x,y)
-Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of x + -yi. 
+Takes the Real(x) and Imaginary(y) parts of a complex number and puts it in the form of (Re,Im). 
 The input is two Decimals and it returns a tuple.
 ## cf.conj_s(z)
 Takes the Real and Imaginary parts of a complex number and puts it in the form of x + -yi. 
