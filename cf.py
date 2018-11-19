@@ -601,14 +601,14 @@ def totient_num(n) :
 
 def div_sig(k,n):
     z1 = 0
-    for i in range(1,n + 1) :
+    for i in range(1,n) :
         if n % i == 0 :
             z1 += i ** k
     return z1
 
 def divisors(n):
     z1 = []
-    for i in range(1,n + 1) :
+    for i in range(1,n) :
         if n % i == 0 :
             z1.append(i)
     return z1
