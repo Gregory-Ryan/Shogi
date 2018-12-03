@@ -19,7 +19,6 @@ def last_name(first_name_last_name):
         second_space = len(first_name_last_name)
     return first_name_last_name[first_space+1:second_space]
 
-
 promt = ["The Friend List", "", "1. Add a new friend to the end", "2. Insert a new friend in a specific index location",
          "3. Delete a friend by index or name", "4. Print a numbered list of friends to the screen",
          "5. Sort the list alphabetically", "6. Save the list to a file (files)", "7. Load a list from a file",
@@ -152,11 +151,10 @@ while command != 8:
             done = 0
             search = 0
             for dot in range(0, len(line_in)):
-                if done != 1:
-                    if line_in[dot] == ".":
-                        start = dot + 2
-                        search = dot + 1
-                        done = 1
+                if line_in[dot] == "." and done != 1:
+                    start = dot + 2
+                    search = dot + 1
+                    done = 1
             for i in range(start, len(line_in)):
                 if line_in[i] == " ":
                     person.append(line_in[search + 1:i])
