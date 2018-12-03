@@ -3,7 +3,6 @@ def first_name(first_name_last_name):
         if first_name_last_name[place_in_name] == " ":
             return first_name_last_name[0:place_in_name]
 
-
 def last_name(first_name_last_name):
     fin = 0
     found = 0
