@@ -16,6 +16,7 @@ def select(x,y):
             if piece[2] == x and piece[3] == y:
                 selected = piece
     turn_order.appened(selected)
+    wn.onclick(move)
 
 
 player_one = []
