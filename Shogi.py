@@ -1,5 +1,15 @@
 import turtle
 
+
+def create(name):
+    name = turtle.Turtle()
+    return name
+
+
+def move_turtle(name,x,y):
+    name.setpos(x,y)
+
+
 def death(piece,player):
     if player == 1:
         player_one.remove(piece)
@@ -17,7 +27,7 @@ def move(x,y):
     fail = 0
     selected = turn_order[len(turn_order) -1]
     turtle_name = selected[0]
-    if len(turn_order) + 1 % 2 != 0:
+    if len(turn_order) % 2 != 0:
         if selected in player_two_dead:
             player_two_dead.remove(selected)
             player_one.append(selected)
@@ -27,7 +37,7 @@ def move(x,y):
         for piece in player_two:
             if piece[1] == x and piece[2] == y:
                 death(piece,2)
-    elif len(turn_order) + 1 % 2 == 0:
+    elif len(turn_order) % 2 == 0:
         if selected in player_one_dead:
             player_one_dead.remove(selected)
             player_two.append(selected)
@@ -38,8 +48,7 @@ def move(x,y):
             if piece[1] == x and piece[2] == y:
                 death(piece,1)
     if fail != 1:
-        turtle_name.setpos(x,y)
-#        turn_counter += 1
+        move_turtle(turtle_name,x,y)
         wn.onclick(select)
 
     else:
@@ -73,19 +82,18 @@ player_one = [['turtle1',10,100]]
 player_one_dead = []
 player_two = [['turtle2',200,100]]
 player_two_dead = []
-# turn_counter = 1
 turn_order = []
 
 wn = turtle.Screen()
 
 for player_one_set in player_one:
-    turtle_name_set = player_one_set[0]
-    turtle_name_set = turtle.Turtle()
+    turtle_names = player_one_set[0]
+    turtle_name_set = create(turtle_names)
     turtle_name_set.setpos(player_one_set[1],player_one_set[2])
 
 for player_two_set in player_two:
-    turtle_name_set = player_two_set[0]
-    turtle_name_set = turtle.Turtle()
+    turtle_names = player_two_set[0]
+    turtle_name_set = create(turtle_names)
     turtle_name_set.setpos(player_two_set[1],player_two_set[2])
 
 if len(turn_order) + 1 == 1:
