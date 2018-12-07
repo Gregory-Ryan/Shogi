@@ -1,6 +1,72 @@
 import turtle
 
 
+def make_yards():
+    make = turtle.Turtle()
+    make.ht()
+    make.speed(0)
+    make.penup()
+    make.setpos(-400,-175)
+    make.pendown()
+    make.forward(150)
+    make.back(150)
+    make.left(180)
+    for q in range(0,2):
+        if q == 1:
+            make.penup()
+            make.setpos(400,175)
+            make.pendown()
+            make.left(90)
+            make.forward(150)
+            make.back(150)
+            make.right(180)
+        for i in range(0,7):
+            if i % 2 == 0:
+                make.right(90)
+                make.forward(50)
+                make.right(90)
+                make.forward(150)
+            else:
+                make.left(90)
+                make.forward(50)
+                make.left(90)
+                make.forward(150)
+
+        make.right(90)
+        make.forward(350)
+        make.right(90)
+        make.forward(50)
+        make.right(90)
+        make.forward(350)
+        make.left(90)
+        make.forward(50)
+        make.left(90)
+        make.forward(350)
+        make.right(90)
+        make.forward(50)
+        make.right(90)
+        make.forward(350)
+
+
+
+
+
+
+
+def round_to_mid(x,y):
+    for location in middle:
+        if location[0] - 25 <= x <= location[0] + 25 and location[1] - 25 <= y <= location[1] + 25:
+            return [location[0],location[1]]
+
+
+def mid():
+    mid = []
+    for mid_y in range(0,9):
+        for mid_x in range(0,9):
+            mid.append([-200 + mid_x * 50, 200 - mid_y * 50])
+    return mid
+
+
 def make_board():
     maker = turtle.Turtle()
     maker.ht()
@@ -35,8 +101,11 @@ def death(piece,player):
         turtle_name.turn(180)
 
 
-def move(x,y):
+def move(u,v):
     global turn_counter
+    cord = round_to_mid(u,v)
+    x = cord[0]
+    y = cord[1]
     fail = 0
     selected = turn_order[len(turn_order) -1]
     turtle_name = selected[3]
@@ -61,9 +130,9 @@ def move(x,y):
             if piece[1] == x and piece[2] == y:
                 death(piece,1)
     if fail != 1:
-        del selected[0:1]
+        del selected[1]
         selected.insert(1,x)
-        del selected[1:2]
+        del selected[2]
         selected.insert(2,y)
         turtle_name.setpos(x,y)
         turtle_name.color("black")
@@ -109,11 +178,13 @@ player_one_dead = []
 player_two = [['turtle2',200,100,turtle.Turtle()]]
 player_two_dead = []
 turn_order = []
+middle = mid()
 turn_counter = 1
 
 wn = turtle.Screen()
 wn.title("Shogi")
 make_board()
+make_yards()
 
 for player_one_set in player_one:
     turtle_names = player_one_set[3]
@@ -124,6 +195,7 @@ for player_two_set in player_two:
     turtle_names = player_two_set[3]
     turtle_names.penup()
     turtle_names.setpos(player_two_set[1],player_two_set[2])
+    turtle_names.right(180)
 
 
 if turn_counter == 1:
