@@ -1,6 +1,27 @@
 import turtle
 
 
+def make_board():
+    maker = turtle.Turtle()
+    maker.ht()
+    maker.speed(0)
+    maker.penup()
+    maker.setpos(225,-225)
+    maker.pendown()
+    for lines in range(0,2):
+        maker.left(90)
+        for repeat in range(0,5):
+            maker.forward(450)
+            maker.left(90)
+            maker.forward(50)
+            maker.left(90)
+            maker.forward(450)
+            if repeat != 4:
+                maker.right(90)
+                maker.forward(50)
+                maker.right(90)
+
+
 def death(piece,player):
     if player == 1:
         player_one.remove(piece)
@@ -48,7 +69,6 @@ def move(x,y):
         turtle_name.color("black")
         turn_counter += 1
         wn.onclick(select)
-
     else:
         wn.onclick(move)
 
@@ -59,20 +79,20 @@ def select(x,y):
     fail = 1
     if turn_counter % 2 != 0:
         for piece in player_one:
-            if piece[1] - 50 <= x <= piece[1] + 50 and piece[2] - 50 <= y <= piece[2] + 50:
+            if piece[1] - 25 <= x <= piece[1] + 25 and piece[2] - 25 <= y <= piece[2] + 25:
                 selected = piece
                 fail = 0
         for piece in player_two_dead:
-            if piece[1] - 50 <= x <= piece[1] + 50 and piece[2] - 50 <= y <= piece[2] + 50:
+            if piece[1] - 25 <= x <= piece[1] + 25 and piece[2] - 25 <= y <= piece[2] + 25:
                 selected = piece
                 fail = 0
     elif turn_counter % 2 == 0:
         for piece in player_two:
-            if piece[1] - 50 <= x <= piece[1] + 50 and piece[2] - 50 <= y <= piece[2] + 50:
+            if piece[1] - 25 <= x <= piece[1] + 25 and piece[2] - 25 <= y <= piece[2] + 25:
                 selected = piece
                 fail = 0
         for piece in player_one_dead:
-            if piece[1] - 50 <= x <= piece[1] + 50 and piece[2] - 50 <= y <= piece[2] + 50:
+            if piece[1] - 25 <= x <= piece[1] + 25 and piece[2] - 25 <= y <= piece[2] + 25:
                 selected = piece
                 fail = 0
     if fail != 1:
@@ -80,7 +100,6 @@ def select(x,y):
         turtle_ref.color("blue")
         turn_order.append(selected)
         wn.onclick(move)
-        
     else:
         wn.onclick(select)
 
@@ -94,13 +113,16 @@ turn_counter = 1
 
 wn = turtle.Screen()
 wn.title("Shogi")
+make_board()
 
 for player_one_set in player_one:
     turtle_names = player_one_set[3]
+    turtle_names.penup()
     turtle_names.setpos(player_one_set[1],player_one_set[2])
 
 for player_two_set in player_two:
     turtle_names = player_two_set[3]
+    turtle_names.penup()
     turtle_names.setpos(player_two_set[1],player_two_set[2])
 
 
