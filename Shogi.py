@@ -62,6 +62,15 @@ def mid():
     return midd
 
 
+# def promote(piece):
+#     prompt = wn.textinput("Promotion","Promote?(y or n)")
+#     if piece in promotion and prompt == "y":
+#         name = piece[0]
+#         new_name = "promoted" + name
+#         del piece[0]
+#         piece.insert(0, new_name)
+
+
 def make_board():
     maker = turtle.Turtle()
     maker.ht()
@@ -197,6 +206,7 @@ player_one = [['turtle1', 50, 100, turtle.Turtle()], ['turtle3', 100, 100, turtl
 player_one_dead = []
 player_two = [['turtle2', 200, 100, turtle.Turtle()], ['turtle4', 200, 150, turtle.Turtle()]]
 player_two_dead = []
+# promotion = []
 turn_order = []
 middle = mid()
 turn_counter = 1
