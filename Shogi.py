@@ -63,6 +63,60 @@ def mid():
     return midd
 
 
+def legal_move(piece):
+    global turn_counter
+    global temp_move_list
+    restrict = 0
+    player = 0
+    if turn_counter % 2 != 0:
+        player = 1
+        if piece in player_one:
+            restrict = 1
+    elif turn_counter % 2 == 0:
+        player = 2
+        if piece in player_two:
+            restrict = 1
+    if restrict == 1:
+        piece_name = piece[0]
+        for rule in movement_rules:
+            if piece_name == rule[0]:
+                move_list = rule[1:len(rule)]
+                for location in move_list:
+                    if player == 1:
+                        for part in player_one:
+                            if part[1] != location[0] + piece[1] and part[2] != location[1] + piece[2]:
+                                high_light_space(location[0] + piece[1],location[1] + piece[2],"blue")
+                                temp_move_list.append([location[0] + piece[1],location[1] + piece[2]])
+                        for part in player_two:
+                            if [part[1],part[2]] == [location[0] + piece[1],location[1] + piece[2]]:
+                                high_light_space(location[0] + piece[1],location[1] + piece[2],"red")
+                                temp_move_list.append([location[0] + piece[1],location[1] + piece[2]])
+                    elif player == 2:
+                        for part in player_two:
+                            if part[1] != location[0] + piece[1] and part[2] != location[1] + piece[2]:
+                                high_light_space(location[0] + piece[1],location[1] + piece[2],"blue")
+                                temp_move_list.append([location[0] + piece[1],location[1] + piece[2]])
+                        for part in player_one:
+                            if [part[1],part[2]] == [location[0] + piece[1],location[1] + piece[2]]:
+                                high_light_space(location[0] + piece[1],location[1] + piece[2],"red")
+                                temp_move_list.append([location[0] + piece[1],location[1] + piece[2]])
+    else:
+        temp_move_list = middle
+
+
+def high_light_space(x,y,color):
+    if [x,y] in middle:
+        t.color(color)
+        t.pensize(2)
+        t.penup()
+        t.setpos(x+25,y-25)
+        t.pendown()
+        for i in range(0,4):
+            t.left(90)
+            t.forward(50)
+
+
+
 # def promote(piece):
 #     prompt = wn.textinput("Promotion","Promote?(y or n)")
 #     if piece in promotion and prompt == "y":
@@ -127,11 +181,17 @@ def move(u, v):
     y = cord[1]
     fail = 0
     returned = 0
+    legal = 0
     selected = order_selected[len(order_selected) - 1]
     turtle_name = selected[3]
     if x == "na" and y == "na":
         fail = 1
-    if turn_counter % 2 != 0:
+    for test in temp_move_list:
+        if test == cord:
+            legal = 1
+    if legal != 1:
+        fail = 1
+    if turn_counter % 2 != 0 and fail != 1:
         if selected in player_two_dead:
             player_two_dead.remove(selected)
             player_one.append(selected)
@@ -145,7 +205,7 @@ def move(u, v):
                     fail = 1
                 else:
                     death(piece, 2)
-    elif turn_counter % 2 == 0:
+    elif turn_counter % 2 == 0 and fail != 1:
         if selected in player_one_dead:
             player_one_dead.remove(selected)
             player_two.append(selected)
@@ -164,6 +224,8 @@ def move(u, v):
         selected.insert(1, x)
         del selected[2]
         selected.insert(2, y)
+        temp_move_list.clear()
+        t.clear()
         turtle_name.clear()
         turtle_name.setpos(x, y)
         turtle_name.color("black")
@@ -171,6 +233,8 @@ def move(u, v):
         turn_counter += 1
         wn.onclick(select)
     else:
+        temp_move_list.clear()
+        t.clear()
         turtle_name.color("black")
         wn.onclick(select)
 
@@ -201,8 +265,11 @@ def select(x, y):
         turtle_ref = selected[3]
         turtle_ref.color("blue")
         order_selected.append(selected)
+        legal_move(selected)
         wn.onclick(move)
     else:
+        temp_move_list.clear()
+        t.clear()
         wn.onclick(select)
 
 
@@ -210,6 +277,8 @@ player_one = [['turtle1', 50, 100, turtle.Turtle()], ['turtle3', 100, 100, turtl
 player_one_dead = []
 player_two = [['turtle2', 200, 100, turtle.Turtle()], ['turtle4', 200, 150, turtle.Turtle()]]
 player_two_dead = []
+movement_rules = [['turtle1',[0,50],[0,-50],[50,0]], ['turtle2',[0,50],[0,-50]], ['turtle3',[0,50],[0,-50]], ['turtle4',[0,50],[0,-50]]]
+temp_move_list = []
 # promotion = []
 order_selected = []
 middle = mid()
@@ -220,6 +289,10 @@ wn.title("Shogi")
 make_board()
 make_yards()
 wn.register_shape("tri", ((10,-3), (10,-20),  (-10,-20), (-10,-3), (-5,10), (5,10)))
+t = turtle.Turtle()
+t.ht()
+t.speed(0)
+
 
 for player_one_set in player_one:
     turtle_names = player_one_set[3]
