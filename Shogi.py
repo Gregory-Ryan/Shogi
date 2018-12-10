@@ -97,10 +97,10 @@ def death(piece, player):
         player_one.remove(piece)
         player_one_dead.append(piece)
         turtle_name = piece[3]
-        turtle_name.right(180)
         turtle_name.clear()
         turtle_name.setpos(375 - 50 * (len(player_one_dead) - 1), 150)
-        turtle_name.write(piece[0], align="center")
+        turtle_name.right(180)
+        turtle_name.write(piece[0] + "\n", align="center",font=("Arial",7,"bold"))
         del piece[1]
         piece.insert(1, 375 - 50 * (len(player_one_dead) - 1))
         del piece[2]
@@ -109,10 +109,10 @@ def death(piece, player):
         player_two.remove(piece)
         player_two_dead.append(piece)
         turtle_name = piece[3]
-        turtle_name.right(180)
         turtle_name.clear()
         turtle_name.setpos(-375 + 50 * (len(player_two_dead) - 1), 150)
-        turtle_name.write(piece[0], align="center")
+        turtle_name.right(180)
+        turtle_name.write(piece[0] + "\n", align="center",font=("Arial",7,"bold"))
         del piece[1]
         piece.insert(1, -375 + 50 * (len(player_two_dead) - 1))
         del piece[2]
@@ -164,7 +164,7 @@ def move(u, v):
         turtle_name.clear()
         turtle_name.setpos(x, y)
         turtle_name.color("black")
-        turtle_name.write(selected[0], align="center")
+        turtle_name.write(selected[0] + "\n", align="center",font=("Arial",7,"bold"))
         turn_counter += 1
         wn.onclick(select)
     else:
@@ -215,19 +215,22 @@ wn = turtle.Screen()
 wn.title("Shogi")
 make_board()
 make_yards()
+wn.register_shape("tri", ((10,-3), (10,-20),  (-10,-20), (-10,-3), (-5,10), (5,10)))
 
 for player_one_set in player_one:
     turtle_names = player_one_set[3]
+    turtle_names.shape("tri")
     turtle_names.penup()
     turtle_names.setpos(player_one_set[1], player_one_set[2])
-    turtle_names.write(player_one_set[0], align="center")
+    turtle_names.write(player_one_set[0] + "\n", align="center",font=("Arial",7,"bold"))
 
 for player_two_set in player_two:
     turtle_names = player_two_set[3]
+    turtle_names.shape("tri")
     turtle_names.penup()
     turtle_names.setpos(player_two_set[1], player_two_set[2])
     turtle_names.right(180)
-    turtle_names.write(player_two_set[0], align="center")
+    turtle_names.write(player_two_set[0] + "\n", align="center",font=("Arial",7,"bold"))
 
 if turn_counter == 1:
     wn.onclick(select)
