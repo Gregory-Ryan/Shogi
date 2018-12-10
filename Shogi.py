@@ -52,6 +52,7 @@ def round_to_mid(x, y):
     for location in middle:
         if location[0] - 25 <= x <= location[0] + 25 and location[1] - 25 <= y <= location[1] + 25:
             return [location[0], location[1]]
+    return ["na","na"]
 
 
 def mid():
@@ -126,8 +127,10 @@ def move(u, v):
     y = cord[1]
     fail = 0
     returned = 0
-    selected = turn_order[len(turn_order) - 1]
+    selected = order_selected[len(order_selected) - 1]
     turtle_name = selected[3]
+    if x == "na" and y == "na":
+        fail = 1
     if turn_counter % 2 != 0:
         if selected in player_two_dead:
             player_two_dead.remove(selected)
@@ -168,7 +171,8 @@ def move(u, v):
         turn_counter += 1
         wn.onclick(select)
     else:
-        wn.onclick(move)
+        turtle_name.color("black")
+        wn.onclick(select)
 
 
 def select(x, y):
@@ -196,7 +200,7 @@ def select(x, y):
     if fail != 1:
         turtle_ref = selected[3]
         turtle_ref.color("blue")
-        turn_order.append(selected)
+        order_selected.append(selected)
         wn.onclick(move)
     else:
         wn.onclick(select)
@@ -207,7 +211,7 @@ player_one_dead = []
 player_two = [['turtle2', 200, 100, turtle.Turtle()], ['turtle4', 200, 150, turtle.Turtle()]]
 player_two_dead = []
 # promotion = []
-turn_order = []
+order_selected = []
 middle = mid()
 turn_counter = 1
 
