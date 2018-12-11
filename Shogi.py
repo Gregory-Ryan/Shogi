@@ -98,13 +98,21 @@ def high_light_space(x,y,color):
 
 
 
-# def promote(piece):
-#     prompt = wn.textinput("Promotion","Promote?(y or n)")
-#     if piece in promotion and prompt == "y":
-#         name = piece[0]
-#         new_name = "promoted" + name
-#         del piece[0]
-#         piece.insert(0, new_name)
+def promote(piece):
+    active_player_list = []
+    if turn_counter % 2 != 0:
+        active_player_list = player_one
+    elif turn_counter % 2 == 0:
+        active_player_list = player_two
+    if piece in promotion:
+        prompt = wn.textinput("Promotion", "Promote?(y or n)")
+        if prompt == "y":
+            active_player_list.remove(piece)
+            name = piece[0]
+            new_name = "promoted" + name
+            del piece[0]
+            piece.insert(0, new_name)
+            active_player_list.append(piece)
 
 
 def make_board():
@@ -256,7 +264,7 @@ player_two = [['turtle2', 200, 100, turtle.Turtle()], ['turtle4', 200, 150, turt
 player_two_dead = []
 movement_rules = [['turtle1',[0,50],[0,-50],[50,0]], ['turtle2',[0,50],[0,-50]], ['turtle3',[0,50],[0,-50]], ['turtle4',[0,50],[0,-50]]]
 temp_move_list = []
-# promotion = []
+promotion = []
 order_selected = []
 middle = mid()
 turn_counter = 1
