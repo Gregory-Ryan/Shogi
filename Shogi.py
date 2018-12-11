@@ -52,7 +52,7 @@ def round_to_mid(x, y):
     for location in middle:
         if location[0] - 25 <= x <= location[0] + 25 and location[1] - 25 <= y <= location[1] + 25:
             return [location[0], location[1]]
-    return ["na","na"]
+    return ["na", "na"]
 
 
 def mid():
@@ -67,11 +67,14 @@ def legal_move(piece):
     global turn_counter
     global temp_move_list
     restrict = 0
+    inactive_player = 0
     if turn_counter % 2 != 0:
         if piece in player_one:
+            inactive_player = 2
             restrict = 1
     elif turn_counter % 2 == 0:
         if piece in player_two:
+            inactive_player = 1
             restrict = 1
     if restrict == 1:
         piece_name = piece[0]
@@ -79,23 +82,25 @@ def legal_move(piece):
             if piece_name == rule[0]:
                 move_list = rule[1:len(rule)]
                 for location in move_list:
-                    high_light_space(location[0] + piece[1], location[1] + piece[2], "blue")
-                    temp_move_list.append([location[0] + piece[1], location[1] + piece[2]])
+                    for add in range(0, int(len(location) / 2)):
+                        high_light_space((-1) ** inactive_player * location[0 + 2 * add] + piece[1],
+                                         (-1) ** inactive_player * location[1 + 2 * add] + piece[2], "blue")
+                        temp_move_list.append([(-1) ** inactive_player * location[0 + 2 * add] + piece[1],
+                                               (-1) ** inactive_player * location[1 + 2 * add] + piece[2]])
     else:
         temp_move_list = middle[:]
 
 
-def high_light_space(x,y,color):
-    if [x,y] in middle:
+def high_light_space(x, y, color):
+    if [x, y] in middle:
         t.color(color)
         t.pensize(2)
         t.penup()
-        t.setpos(x+25,y-25)
+        t.setpos(x + 25, y - 25)
         t.pendown()
-        for i in range(0,4):
+        for i in range(0, 4):
             t.left(90)
             t.forward(50)
-
 
 
 def promote(piece):
@@ -155,7 +160,7 @@ def death(piece):
     turtle_name.clear()
     turtle_name.setpos((-1) ** active_player * (375 - 50 * (len(inactive_player_dead) - 1)), 150)
     turtle_name.right(180)
-    turtle_name.write(piece[0] + "\n", align="center",font=("Arial",7,"bold"))
+    turtle_name.write(piece[0] + "\n", align="center", font=("Arial", 7, "bold"))
     del piece[1]
     piece.insert(1, (-1) ** active_player * (375 - 50 * (len(inactive_player_dead) - 1)))
     del piece[2]
@@ -216,7 +221,7 @@ def move(u, v):
         turtle_name.clear()
         turtle_name.setpos(x, y)
         turtle_name.color("black")
-        turtle_name.write(selected[0] + "\n", align="center",font=("Arial",7,"bold"))
+        turtle_name.write(selected[0] + "\n", align="center", font=("Arial", 7, "bold"))
         turn_counter += 1
         wn.onclick(select)
     else:
@@ -262,7 +267,8 @@ player_one = [['turtle1', 50, 100, turtle.Turtle()], ['turtle3', 100, 100, turtl
 player_one_dead = []
 player_two = [['turtle2', 200, 100, turtle.Turtle()], ['turtle4', 200, 150, turtle.Turtle()]]
 player_two_dead = []
-movement_rules = [['turtle1',[0,50],[0,-50],[50,0]], ['turtle2',[0,50],[0,-50]], ['turtle3',[0,50],[0,-50]], ['turtle4',[0,50],[0,-50]]]
+movement_rules = [['turtle1', [0, 50], [0, -50], [50, 0, 100, 0, 150, 0]], ['turtle2', [0, 50], [0, -50], [50, 0, 100, 0]],
+                  ['turtle3', [0, 50], [0, -50]], ['turtle4', [0, 50], [0, -50]]]
 temp_move_list = []
 promotion = []
 order_selected = []
@@ -273,18 +279,17 @@ wn = turtle.Screen()
 wn.title("Shogi")
 make_board()
 make_yards()
-wn.register_shape("tri", ((10,-3), (10,-20),  (-10,-20), (-10,-3), (-5,10), (5,10)))
+wn.register_shape("tri", ((10, -3), (10, -20), (-10, -20), (-10, -3), (-5, 10), (5, 10)))
 t = turtle.Turtle()
 t.ht()
 t.speed(0)
-
 
 for player_one_set in player_one:
     turtle_names = player_one_set[3]
     turtle_names.shape("tri")
     turtle_names.penup()
     turtle_names.setpos(player_one_set[1], player_one_set[2])
-    turtle_names.write(player_one_set[0] + "\n", align="center",font=("Arial",7,"bold"))
+    turtle_names.write(player_one_set[0] + "\n", align="center", font=("Arial", 7, "bold"))
 
 for player_two_set in player_two:
     turtle_names = player_two_set[3]
@@ -292,7 +297,7 @@ for player_two_set in player_two:
     turtle_names.penup()
     turtle_names.setpos(player_two_set[1], player_two_set[2])
     turtle_names.right(180)
-    turtle_names.write(player_two_set[0] + "\n", align="center",font=("Arial",7,"bold"))
+    turtle_names.write(player_two_set[0] + "\n", align="center", font=("Arial", 7, "bold"))
 
 if turn_counter == 1:
     wn.onclick(select)
