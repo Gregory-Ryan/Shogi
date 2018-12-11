@@ -67,13 +67,10 @@ def legal_move(piece):
     global turn_counter
     global temp_move_list
     restrict = 0
-    player = 0
     if turn_counter % 2 != 0:
-        player = 1
         if piece in player_one:
             restrict = 1
     elif turn_counter % 2 == 0:
-        player = 2
         if piece in player_two:
             restrict = 1
     if restrict == 1:
@@ -82,26 +79,10 @@ def legal_move(piece):
             if piece_name == rule[0]:
                 move_list = rule[1:len(rule)]
                 for location in move_list:
-                    if player == 1:
-                        for part in player_one:
-                            if part[1] != location[0] + piece[1] and part[2] != location[1] + piece[2]:
-                                high_light_space(location[0] + piece[1],location[1] + piece[2],"blue")
-                                temp_move_list.append([location[0] + piece[1],location[1] + piece[2]])
-                        for part in player_two:
-                            if [part[1],part[2]] == [location[0] + piece[1],location[1] + piece[2]]:
-                                high_light_space(location[0] + piece[1],location[1] + piece[2],"red")
-                                temp_move_list.append([location[0] + piece[1],location[1] + piece[2]])
-                    elif player == 2:
-                        for part in player_two:
-                            if part[1] != location[0] + piece[1] and part[2] != location[1] + piece[2]:
-                                high_light_space(location[0] + piece[1],location[1] + piece[2],"blue")
-                                temp_move_list.append([location[0] + piece[1],location[1] + piece[2]])
-                        for part in player_one:
-                            if [part[1],part[2]] == [location[0] + piece[1],location[1] + piece[2]]:
-                                high_light_space(location[0] + piece[1],location[1] + piece[2],"red")
-                                temp_move_list.append([location[0] + piece[1],location[1] + piece[2]])
+                    high_light_space(location[0] + piece[1], location[1] + piece[2], "blue")
+                    temp_move_list.append([location[0] + piece[1], location[1] + piece[2]])
     else:
-        temp_move_list = middle
+        temp_move_list = middle[:]
 
 
 def high_light_space(x,y,color):
@@ -147,31 +128,30 @@ def make_board():
                 maker.right(90)
 
 
-def death(piece, player):
-    if player == 1:
-        player_one.remove(piece)
-        player_one_dead.append(piece)
-        turtle_name = piece[3]
-        turtle_name.clear()
-        turtle_name.setpos(375 - 50 * (len(player_one_dead) - 1), 150)
-        turtle_name.right(180)
-        turtle_name.write(piece[0] + "\n", align="center",font=("Arial",7,"bold"))
-        del piece[1]
-        piece.insert(1, 375 - 50 * (len(player_one_dead) - 1))
-        del piece[2]
-        piece.insert(2, 150)
-    elif player == 2:
-        player_two.remove(piece)
-        player_two_dead.append(piece)
-        turtle_name = piece[3]
-        turtle_name.clear()
-        turtle_name.setpos(-375 + 50 * (len(player_two_dead) - 1), 150)
-        turtle_name.right(180)
-        turtle_name.write(piece[0] + "\n", align="center",font=("Arial",7,"bold"))
-        del piece[1]
-        piece.insert(1, -375 + 50 * (len(player_two_dead) - 1))
-        del piece[2]
-        piece.insert(2, 150)
+def death(piece):
+    global turn_counter
+    inactive_player_list = []
+    inactive_player_dead = []
+    active_player = 0
+    if turn_counter % 2 != 0:
+        inactive_player_list = player_two
+        inactive_player_dead = player_two_dead
+        active_player = 1
+    elif turn_counter % 2 == 0:
+        inactive_player_list = player_one
+        inactive_player_dead = player_one_dead
+        active_player = 2
+    inactive_player_list.remove(piece)
+    inactive_player_dead.append(piece)
+    turtle_name = piece[3]
+    turtle_name.clear()
+    turtle_name.setpos((-1) ** active_player * (375 - 50 * (len(inactive_player_dead) - 1)), 150)
+    turtle_name.right(180)
+    turtle_name.write(piece[0] + "\n", align="center",font=("Arial",7,"bold"))
+    del piece[1]
+    piece.insert(1, (-1) ** active_player * (375 - 50 * (len(inactive_player_dead) - 1)))
+    del piece[2]
+    piece.insert(2, 150)
 
 
 def move(u, v):
@@ -182,6 +162,9 @@ def move(u, v):
     fail = 0
     returned = 0
     legal = 0
+    active_player_list = []
+    inactive_player_list = []
+    inactive_player_dead = []
     selected = order_selected[len(order_selected) - 1]
     turtle_name = selected[3]
     if x == "na" and y == "na":
@@ -191,39 +174,35 @@ def move(u, v):
             legal = 1
     if legal != 1:
         fail = 1
-    if turn_counter % 2 != 0 and fail != 1:
-        if selected in player_two_dead:
-            player_two_dead.remove(selected)
-            player_one.append(selected)
-            returned = 1
-        for piece in player_one:
-            if piece[1] == x and piece[2] == y:
-                fail = 1
-        for piece in player_two:
-            if piece[1] == x and piece[2] == y:
-                if returned == 1:
-                    fail = 1
-                else:
-                    death(piece, 2)
-    elif turn_counter % 2 == 0 and fail != 1:
-        if selected in player_one_dead:
-            player_one_dead.remove(selected)
-            player_two.append(selected)
-            returned = 1
-        for piece in player_two:
-            if piece[1] == x and piece[2] == y:
-                fail = 1
-        for piece in player_one:
-            if piece[1] == x and piece[2] == y:
-                if returned == 1:
-                    fail = 1
-                else:
-                    death(piece, 1)
+    if turn_counter % 2 != 0:
+        active_player_list = player_one
+        inactive_player_list = player_two
+        inactive_player_dead = player_two_dead
+    elif turn_counter % 2 == 0:
+        active_player_list = player_two
+        inactive_player_list = player_one
+        inactive_player_dead = player_one_dead
     if fail != 1:
+        if selected in inactive_player_dead:
+            inactive_player_dead.remove(selected)
+            active_player_list.append(selected)
+            returned = 1
+        for piece in active_player_list:
+            if piece[1] == x and piece[2] == y:
+                fail = 1
+        for piece in inactive_player_list:
+            if piece[1] == x and piece[2] == y:
+                if returned == 1:
+                    fail = 1
+                else:
+                    death(piece)
+    if fail != 1:
+        active_player_list.remove(selected)
         del selected[1]
         selected.insert(1, x)
         del selected[2]
         selected.insert(2, y)
+        active_player_list.append(selected)
         temp_move_list.clear()
         t.clear()
         turtle_name.clear()
@@ -243,24 +222,22 @@ def select(x, y):
     global turn_counter
     selected = []
     fail = 1
+    active_player_list = []
+    inactive_player_dead = []
     if turn_counter % 2 != 0:
-        for piece in player_one:
-            if piece[1] - 25 <= x <= piece[1] + 25 and piece[2] - 25 <= y <= piece[2] + 25:
-                selected = piece
-                fail = 0
-        for piece in player_two_dead:
-            if piece[1] - 25 <= x <= piece[1] + 25 and piece[2] - 25 <= y <= piece[2] + 25:
-                selected = piece
-                fail = 0
+        active_player_list = player_one
+        inactive_player_dead = player_two_dead
     elif turn_counter % 2 == 0:
-        for piece in player_two:
-            if piece[1] - 25 <= x <= piece[1] + 25 and piece[2] - 25 <= y <= piece[2] + 25:
-                selected = piece
-                fail = 0
-        for piece in player_one_dead:
-            if piece[1] - 25 <= x <= piece[1] + 25 and piece[2] - 25 <= y <= piece[2] + 25:
-                selected = piece
-                fail = 0
+        active_player_list = player_two
+        inactive_player_dead = player_one_dead
+    for piece in active_player_list:
+        if piece[1] - 25 <= x <= piece[1] + 25 and piece[2] - 25 <= y <= piece[2] + 25:
+            selected = piece
+            fail = 0
+    for piece in inactive_player_dead:
+        if piece[1] - 25 <= x <= piece[1] + 25 and piece[2] - 25 <= y <= piece[2] + 25:
+            selected = piece
+            fail = 0
     if fail != 1:
         turtle_ref = selected[3]
         turtle_ref.color("blue")
