@@ -1,2 +1,8 @@
 venv
 .idea
+_windows
+codestyles
+colors.scheme.xml
+debugger.xml
+filetypes.xml
+vcs.xml
