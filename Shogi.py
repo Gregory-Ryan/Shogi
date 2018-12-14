@@ -1,6 +1,8 @@
 import turtle
 import math
-
+# Figure out if we should do a bunch of spacing or not
+# Too much spacing = disconnected code
+# Too little spacing = too clustered + bad grade = not good
 
 def make_yards():
     make = turtle.Turtle()
@@ -114,13 +116,22 @@ def legal_move(piece):
         temp_move_list = middle[:]
 
 
+# This function highlights a square of your choice to display valid moves.
+# It can be used to highlight enemy squares red, or allied squares blue.
 def high_light_space(x, y, color):
+
     t.color(color)
     t.pensize(2)
     t.penup()
+
+    # x+25 and y-25 moves highlighting turtle from the centre to the bottom right corner of the highlighted square.
+    # This saves us the trouble of having to give orders to the turtle to orient it to a spot where it can draw a square
+    # When we start it off at a corner, we just have to give it orders to draw a simple square.
     t.setpos(x + 25, y - 25)
     t.pendown()
-    for i in range(0, 4):
+
+    # This is a basic square drawing loop
+    for i in range(4):
         t.left(90)
         t.forward(50)
 
@@ -132,8 +143,8 @@ def promote(piece):
     elif turn_counter % 2 == 0:
         active_player_list = player_two
     if piece in promotion:
-        prompt = wn.textinput("Promotion", "Promote?(y or n)")
-        if prompt == "y":
+        prompt = wn.textinput("Promotion", "Promote?(Yes or No)")
+        if prompt.upper() == "YES":
             active_player_list.remove(piece)
             name = piece[0]
             new_name = "promoted" + name
@@ -182,12 +193,13 @@ def death(piece):
     inactive_player_list.remove(piece)
     turtle_name = piece[3]
     turtle_name.clear()
-    for test_spot in range(0,21):
+    for test_spot in range(0, 21):
         if done != 1:
             (row_spot, value) = math.modf(test_spot / 3)
             fail = 0
             for dead in inactive_player_dead:
-                if dead[1] == (-1) ** active_player * (375 - 150 * row_spot) and dead[2] == 150 - 50 * math.floor(test_spot/ 3):
+                if dead[1] == (-1) ** active_player * (375 - 150 * row_spot) and dead[2] == 150 - 50 * math.floor(
+                        test_spot / 3):
                     fail = 1
             if fail != 1:
                 x = (-1) ** active_player * (375 - 150 * row_spot)
@@ -216,35 +228,47 @@ def move(u, v):
     inactive_player_dead = []
     selected = order_selected[len(order_selected) - 1]
     turtle_name = selected[3]
+
     if x == "na" and y == "na":
         fail = 1
+
     for test in temp_move_list:
         if test == cord:
             legal = 1
+
     if legal != 1:
         fail = 1
+
     if turn_counter % 2 != 0:
         active_player_list = player_one
         inactive_player_list = player_two
         inactive_player_dead = player_two_dead
+
     elif turn_counter % 2 == 0:
         active_player_list = player_two
         inactive_player_list = player_one
         inactive_player_dead = player_one_dead
+
     if fail != 1:
+
         if selected in inactive_player_dead:
             inactive_player_dead.remove(selected)
             active_player_list.append(selected)
             returned = 1
+
         for piece in active_player_list:
             if piece[1] == x and piece[2] == y:
                 fail = 1
+
         for piece in inactive_player_list:
             if piece[1] == x and piece[2] == y:
+
                 if returned == 1:
                     fail = 1
+
                 else:
                     death(piece)
+
     if fail != 1:
         active_player_list.remove(selected)
         del selected[1]
@@ -260,6 +284,7 @@ def move(u, v):
         turtle_name.write(selected[0] + "\n", align="center", font=("Arial", 7, "bold"))
         turn_counter += 1
         wn.onclick(select)
+
     else:
         temp_move_list.clear()
         t.clear()
@@ -273,26 +298,34 @@ def select(x, y):
     fail = 1
     active_player_list = []
     inactive_player_dead = []
+
     if turn_counter % 2 != 0:
         active_player_list = player_one
         inactive_player_dead = player_two_dead
+
     elif turn_counter % 2 == 0:
         active_player_list = player_two
         inactive_player_dead = player_one_dead
+
     for piece in active_player_list:
+
         if piece[1] - 25 <= x <= piece[1] + 25 and piece[2] - 25 <= y <= piece[2] + 25:
             selected = piece
             fail = 0
+
     for piece in inactive_player_dead:
+
         if piece[1] - 25 <= x <= piece[1] + 25 and piece[2] - 25 <= y <= piece[2] + 25:
             selected = piece
             fail = 0
+
     if fail != 1:
         turtle_ref = selected[3]
         turtle_ref.color("blue")
         order_selected.append(selected)
         legal_move(selected)
         wn.onclick(move)
+
     else:
         temp_move_list.clear()
         t.clear()
@@ -304,10 +337,12 @@ player_one_dead = []
 player_two = [['turtle2', 200, 100, turtle.Turtle()], ['turtle4', 200, 150, turtle.Turtle()],
               ['turtle2', 200, 200, turtle.Turtle()], ['turtle2', 200, 50, turtle.Turtle()],
               ['turtle2', 200, 0, turtle.Turtle()]]
+
 player_two_dead = []
 movement_rules = [['turtle1', [0, 50], [0, -50], [50, 0, 100, 0, 150, 0]],
                   ['turtle2', [0, 50], [0, -50], [50, 0, 100, 0]],
                   ['turtle3', [0, 50], [0, -50]], ['turtle4', [0, 50], [0, -50]]]
+
 temp_move_list = []
 promotion = []
 order_selected = []
