@@ -93,7 +93,7 @@ def legal_move(piece):
                     fail = 0
                     hit = 0
                     color = "blue"
-                    for add in range(0, int(len(location) / 2)):
+                    for add in range(int(len(location) / 2)):
                         if fail == 0 and [(-1) ** inactive_player * location[0 + 2 * add] + piece[1],
                                           (-1) ** inactive_player * location[1 + 2 * add] + piece[2]] in middle:
                             for part in active_player_list:
@@ -108,8 +108,8 @@ def legal_move(piece):
                                 if hit == 1:
                                     color = "red"
                                     fail = 1
-                                high_light_space((-1) ** inactive_player * location[0 + 2 * add] + piece[1],
-                                                 (-1) ** inactive_player * location[1 + 2 * add] + piece[2], color)
+                                highlight_space((-1) ** inactive_player * location[0 + 2 * add] + piece[1],
+                                                (-1) ** inactive_player * location[1 + 2 * add] + piece[2], color)
                                 temp_move_list.append([(-1) ** inactive_player * location[0 + 2 * add] + piece[1],
                                                        (-1) ** inactive_player * location[1 + 2 * add] + piece[2]])
     else:
@@ -118,22 +118,22 @@ def legal_move(piece):
 
 # This function highlights a square of your choice to display valid moves.
 # It can be used to highlight enemy squares red, or allied squares blue.
-def high_light_space(x, y, color):
+def highlight_space(x, y, color):
 
-    t.color(color)
-    t.pensize(2)
-    t.penup()
+    highlighter.color(color)
+    highlighter.pensize(2)
+    highlighter.penup()
 
     # x+25 and y-25 moves highlighting turtle from the centre to the bottom right corner of the highlighted square.
     # This saves us the trouble of having to give orders to the turtle to orient it to a spot where it can draw a square
     # When we start it off at a corner, we just have to give it orders to draw a simple square.
-    t.setpos(x + 25, y - 25)
-    t.pendown()
+    highlighter.setpos(x + 25, y - 25)
+    highlighter.pendown()
 
     # This is a basic square drawing loop
     for i in range(4):
-        t.left(90)
-        t.forward(50)
+        highlighter.left(90)
+        highlighter.forward(50)
 
 
 def promote(piece):
@@ -142,7 +142,7 @@ def promote(piece):
         active_player_list = player_one
     elif turn_counter % 2 == 0:
         active_player_list = player_two
-    if piece in promotion:
+    if piece[0] in promotion:
         prompt = wn.textinput("Promotion", "Promote?(Yes or No)")
         if prompt.upper() == "YES":
             active_player_list.remove(piece)
@@ -193,7 +193,7 @@ def death(piece):
     inactive_player_list.remove(piece)
     turtle_name = piece[3]
     turtle_name.clear()
-    for test_spot in range(0, 21):
+    for test_spot in range(21):
         if done != 1:
             (row_spot, value) = math.modf(test_spot / 3)
             fail = 0
@@ -235,7 +235,6 @@ def move(u, v):
     for test in temp_move_list:
         if test == cord:
             legal = 1
-
     if legal != 1:
         fail = 1
 
@@ -243,7 +242,6 @@ def move(u, v):
         active_player_list = player_one
         inactive_player_list = player_two
         inactive_player_dead = player_two_dead
-
     elif turn_counter % 2 == 0:
         active_player_list = player_two
         inactive_player_list = player_one
@@ -277,7 +275,7 @@ def move(u, v):
         selected.insert(2, y)
         active_player_list.append(selected)
         temp_move_list.clear()
-        t.clear()
+        highlighter.clear()
         turtle_name.clear()
         turtle_name.setpos(x, y)
         turtle_name.color("black")
@@ -287,7 +285,7 @@ def move(u, v):
 
     else:
         temp_move_list.clear()
-        t.clear()
+        highlighter.clear()
         turtle_name.color("black")
         wn.onclick(select)
 
@@ -302,7 +300,6 @@ def select(x, y):
     if turn_counter % 2 != 0:
         active_player_list = player_one
         inactive_player_dead = player_two_dead
-
     elif turn_counter % 2 == 0:
         active_player_list = player_two
         inactive_player_dead = player_one_dead
@@ -328,7 +325,7 @@ def select(x, y):
 
     else:
         temp_move_list.clear()
-        t.clear()
+        highlighter.clear()
         wn.onclick(select)
 
 
@@ -354,9 +351,9 @@ wn.title("Shogi")
 make_board()
 make_yards()
 wn.register_shape("tri", ((10, -3), (10, -20), (-10, -20), (-10, -3), (-5, 10), (5, 10)))
-t = turtle.Turtle()
-t.ht()
-t.speed(0)
+highlighter = turtle.Turtle()
+highlighter.ht()
+highlighter.speed(0)
 
 for player_one_set in player_one:
     turtle_names = player_one_set[3]
