@@ -71,20 +71,17 @@ def mid():
 def legal_move(piece, turn_counted):
     global temp_move_list
     restrict = 0
-    inactive_player = 0
     active_player_list = []
     inactive_player_list = []
     if turn_counted % 2 != 0:
         active_player_list = player_one
         inactive_player_list = player_two
         if piece in player_one:
-            inactive_player = 2
             restrict = 1
     elif turn_counted % 2 == 0:
         active_player_list = player_two
         inactive_player_list = player_one
         if piece in player_two:
-            inactive_player = 1
             restrict = 1
     if restrict == 1:
         piece_name = piece[0]
@@ -95,25 +92,21 @@ def legal_move(piece, turn_counted):
                     fail = 0
                     hit = 0
                     color = "blue"
-                    for add in range(int(len(location) / 2)):
-                        if fail == 0 and [(-1) ** inactive_player * location[0 + 2 * add] + piece[1],
-                                          (-1) ** inactive_player * location[1 + 2 * add] + piece[2]] in middle:
+                    for cord in location:
+                        (x, y) = cord
+                        if fail == 0 and [x + piece[1], y + piece[2]] in middle:
                             for part in active_player_list:
-                                if (-1) ** inactive_player * location[0 + 2 * add] + piece[1] == part[1] and (
-                                        -1) ** inactive_player * location[1 + 2 * add] + piece[2] == part[2]:
+                                if x + piece[1] == part[1] and y + piece[2] == part[2]:
                                     fail = 1
                             for part_2 in inactive_player_list:
-                                if (-1) ** inactive_player * location[0 + 2 * add] + piece[1] == part_2[1] and (
-                                        -1) ** inactive_player * location[1 + 2 * add] + piece[2] == part_2[2]:
+                                if x + piece[1] == part_2[1] and y + piece[2] == part_2[2]:
                                     hit = 1
                             if fail == 0:
                                 if hit == 1:
                                     color = "red"
                                     fail = 1
-                                highlight_space((-1) ** inactive_player * location[0 + 2 * add] + piece[1],
-                                                (-1) ** inactive_player * location[1 + 2 * add] + piece[2], color)
-                                temp_move_list.append([(-1) ** inactive_player * location[0 + 2 * add] + piece[1],
-                                                       (-1) ** inactive_player * location[1 + 2 * add] + piece[2]])
+                                highlight_space(x + piece[1], y + piece[2], color)
+                                temp_move_list.append([x + piece[1], y + piece[2]])
     else:
         temp_move_list = middle[:]
 
@@ -121,28 +114,31 @@ def legal_move(piece, turn_counted):
 # This function highlights a square of your choice to display valid moves.
 # It can be used to highlight enemy squares red, or allied squares blue.
 def highlight_space(x, y, color):
+    wn.tracer(0, 0)
     highlighter.color(color)
-    highlighter.pensize(2)
+    highlighter.pensize(1)
     highlighter.penup()
 
     # x+25 and y-25 moves highlighting turtle from the centre to the bottom right corner of the highlighted square.
     # This saves us the trouble of having to give orders to the turtle to orient it to a spot where it can draw a square
     # When we start it off at a corner, we just have to give it orders to draw a simple square.
-    highlighter.setpos(x + 25, y - 25)
+    highlighter.setpos(x + 24, y - 24)
     highlighter.pendown()
 
     # This is a basic square drawing loop
     for i in range(4):
         highlighter.left(90)
-        highlighter.forward(50)
+        highlighter.forward(48)
+    wn.update()
+    wn.tracer(1, 10)
 
 
 def promote(piece):
     if piece[0] in promotion:
-        prompt = wn.textinput("Promotion", "Promote?(Yes or No)")
-        if prompt.upper() == "YES":
+        prompt = wn.textinput("Promotion", "Promote?(Y or N)")
+        if prompt.upper() == "Y":
             name = piece[0]
-            new_name = "promoted\n" + name
+            new_name = "Pro " + name
             del piece[0]
             piece.insert(0, new_name)
             return piece
@@ -203,7 +199,10 @@ def death(piece, turn_counted):
                 done = 1
     turtle_name.setpos(x, y)
     turtle_name.right(180)
-    turtle_name.write(piece[0] + "\n", align="center", font=("Arial", 7, "bold"))
+    name = piece[0]
+    if name[0:4] == "Pro ":
+        name = name[4:]
+    turtle_name.write(name + "\n", align="center", font=("Arial", 7, "bold"))
     del piece[1]
     piece.insert(1, x)
     del piece[2]
@@ -224,7 +223,6 @@ def move(u, v):
     inactive_player_dead = []
     selected = order_selected[len(order_selected) - 1]
     turtle_name = selected[3]
-    start_x = 0
 
     if x == "na" and y == "na":
         fail = 1
@@ -334,9 +332,9 @@ player_one = [['Pawn', -200, -100, turtle.Turtle()], ['Pawn', -150, -100, turtle
               ['Pawn', 100, -100, turtle.Turtle()], ['Pawn', 150, -100, turtle.Turtle()],
               ['Pawn', 200, -100, turtle.Turtle()], ["Bishop", -150, -150, turtle.Turtle()],
               ["Rook", 150, -150, turtle.Turtle()], ["Lance", -200, -200, turtle.Turtle()],
-              ["Knight", -150, -200, turtle.Turtle()], ["Silver Gen", -100, -200, turtle.Turtle()],
-              ["Gold Gen", -50, -200, turtle.Turtle()], ["King", 0, -200, turtle.Turtle()],
-              ["Gold Gen", 50, -200, turtle.Turtle()], ["Silver Gen", 100, -200, turtle.Turtle()],
+              ["Knight", -150, -200, turtle.Turtle()], ["Silver", -100, -200, turtle.Turtle()],
+              ["Gold", -50, -200, turtle.Turtle()], ["King", 0, -200, turtle.Turtle()],
+              ["Gold", 50, -200, turtle.Turtle()], ["Silver", 100, -200, turtle.Turtle()],
               ["Knight", 150, -200, turtle.Turtle()], ["Lance", 200, -200, turtle.Turtle()]]
 player_one_dead = []
 player_two = [['Pawn', -200, 100, turtle.Turtle()], ['Pawn', -150, 100, turtle.Turtle()],
@@ -345,17 +343,46 @@ player_two = [['Pawn', -200, 100, turtle.Turtle()], ['Pawn', -150, 100, turtle.T
               ['Pawn', 100, 100, turtle.Turtle()], ['Pawn', 150, 100, turtle.Turtle()],
               ['Pawn', 200, 100, turtle.Turtle()], ["Bishop", 150, 150, turtle.Turtle()],
               ["Rook", -150, 150, turtle.Turtle()], ["Lance", 200, 200, turtle.Turtle()],
-              ["Knight", 150, 200, turtle.Turtle()], ["Silver Gen", 100, 200, turtle.Turtle()],
-              ["Gold Gen", 50, 200, turtle.Turtle()], ["King", 0, 200, turtle.Turtle()],
-              ["Gold Gen", -50, 200, turtle.Turtle()], ["Silver Gen", -100, 200, turtle.Turtle()],
+              ["Knight", 150, 200, turtle.Turtle()], ["Silver", 100, 200, turtle.Turtle()],
+              ["Gold", 50, 200, turtle.Turtle()], ["King", 0, 200, turtle.Turtle()],
+              ["Gold", -50, 200, turtle.Turtle()], ["Silver", -100, 200, turtle.Turtle()],
               ["Knight", -150, 200, turtle.Turtle()], ["Lance", -200, 200, turtle.Turtle()]]
 
 player_two_dead = []
-movement_rules = [['Pawn', [0, 50]], ['Rook', [0, 50, 0, 100, 0, 150, 0, 200, 0, 250, 0, 300, 0, 350, 0, 400],
-                                      [50, 0, 100, 0, 150, 0, 200, 0, 250, 0, 300, 0, 350, 0, 400, 0],
-                                      [-50, 0, -100, 0, -150, 0, -200, 0, -250, 0, -300, 0, -350, 0, -400, 0],
-                                      [0, -50, 0, -100, 0, -150, 0, -200, 0, -250, 0, -300, 0, -350, 0, -400]],
-                  ['turtle3', [0, 50], [0, -50]], ['turtle4', [0, 50], [0, -50]]]
+movement_rules = [['Pawn', [(0, 50)]],
+                  ['Bishop', [(50, 50), (100, 100), (150, 150), (200, 200), (250, 250), (300, 300),
+                              (350, 350), (400, 400)],
+                   [(-50, -50), (-100, -100), (-150, -150), (-200, -200), (-250, -250),
+                    (-300, -300), (-350, -350), (-400, -400)],
+                   [(-50, 50), (-100, 100), (-150, 150), (-200, 200), (-250, 250), (-300, 300),
+                    (-350, 350), (-400, 400)],
+                   [(50, -50), (100, -100), (150, -150), (200, -200), (250, -250), (300, -300),
+                    (350, -350), (400, -400)]],
+                  ['Rook', [(0, 50), (0, 100), (0, 150), (0, 200), (0, 250), (0, 300), (0, 350), (0, 400)],
+                   [(50, 0), (100, 0), (150, 0), (200, 0), (250, 0), (300, 0), (350, 0), (400, 0)],
+                   [(-50, 0), (-100, 0), (-150, 0), (-200, 0), (-250, 0), (-300, 0), (-350, 0), (-400, 0)],
+                   [(0, -50), (0, -100), (0, -150), (0, -200), (0, -250), (0, -300), (0, -350), (0, -400)]],
+                  ['Lance', [(0, 50), (0, 100), (0, 150), (0, 200), (0, 250), (0, 300), (0, 350), (0, 400)]],
+                  ['Knight', [(50, 100)], [(-50, 100)]],
+                  ['Silver', [(0, 50)], [(50, 50)], [(-50, 50)], [(-50, -50)], [(50, -50)]],
+                  ['Gold', [(0, 50)], [(50, 50)], [(-50, 50)], [(50, 0)], [(-50, 0)], [(0, -50)]],
+                  ['King', [(0, 50)], [(50, 50)], [(-50, 50)], [(50, 0)], [(-50, 0)], [(0, -50)], [(-50, -50)],
+                   [(50, -50)]], ['Pro Pawn', [(0, 50)], [(50, 50)], [(-50, 50)], [(50, 0)], [(-50, 0)], [(0, -50)]],
+                  ['Pro Knight', [(0, 50)], [(50, 50)], [(-50, 50)], [(50, 0)], [(-50, 0)], [(0, -50)]],
+                  ['Pro Lance', [(0, 50)], [(50, 50)], [(-50, 50)], [(50, 0)], [(-50, 0)], [(0, -50)]],
+                  ['Pro Bishop', [(50, 50), (100, 100), (150, 150), (200, 200), (250, 250), (300, 300),
+                                  (350, 350), (400, 400)],
+                   [(-50, -50), (-100, -100), (-150, -150), (-200, -200), (-250, -250),
+                    (-300, -300), (-350, -350), (-400, -400)],
+                   [(-50, 50), (-100, 100), (-150, 150), (-200, 200), (-250, 250), (-300, 300),
+                    (-350, 350), (-400, 400)],
+                   [(50, -50), (100, -100), (150, -150), (200, -200), (250, -250), (300, -300),
+                    (350, -350), (400, -400)], [(0, 50)], [(50, 0)], [(0, -50)], [(-50, 0)]],
+                  ['Pro Rook', [(0, 50), (0, 100), (0, 150), (0, 200), (0, 250), (0, 300), (0, 350), (0, 400)],
+                   [(50, 0), (100, 0), (150, 0), (200, 0), (250, 0), (300, 0), (350, 0), (400, 0)],
+                   [(-50, 0), (-100, 0), (-150, 0), (-200, 0), (-250, 0), (-300, 0), (-350, 0), (-400, 0)],
+                   [(0, -50), (0, -100), (0, -150), (0, -200), (0, -250), (0, -300), (0, -350), (0, -400)], [(50, 50)],
+                   [(50, -50)], [(-50, 50)], [(-50, -50)]]]
 
 temp_move_list = []
 promotion = ["Pawn", "Knight", "Lance", "Bishop", "Rook"]
@@ -370,7 +397,6 @@ make_yards()
 wn.register_shape("tri", ((10, -3), (10, -12), (-10, -12), (-10, -3), (-5, 10), (5, 10)))
 highlighter = turtle.Turtle()
 highlighter.ht()
-highlighter.speed(0)
 
 for player_one_set in player_one:
     turtle_names = player_one_set[3]
