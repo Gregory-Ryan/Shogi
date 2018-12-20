@@ -1,8 +1,11 @@
 import turtle
 import math
+
+
 # Figure out if we should do a bunch of spacing or not
 # Too much spacing = disconnected code
 # Too little spacing = too clustered + bad grade = not good
+
 
 def make_yards():
     make = turtle.Turtle()
@@ -14,7 +17,7 @@ def make_yards():
     make.forward(150)
     make.back(150)
     make.left(180)
-    for q in range(0, 2):
+    for q in range(2):
         if q == 1:
             make.penup()
             make.setpos(400, 175)
@@ -23,7 +26,7 @@ def make_yards():
             make.forward(150)
             make.back(150)
             make.right(180)
-        for i in range(0, 7):
+        for i in range(7):
             if i % 2 == 0:
                 make.right(90)
                 make.forward(50)
@@ -59,26 +62,25 @@ def round_to_mid(x, y):
 
 def mid():
     midd = []
-    for midd_y in range(0, 9):
-        for midd_x in range(0, 9):
+    for midd_y in range(9):
+        for midd_x in range(9):
             midd.append([-200 + midd_x * 50, 200 - midd_y * 50])
     return midd
 
 
-def legal_move(piece):
-    global turn_counter
+def legal_move(piece, turn_counted):
     global temp_move_list
     restrict = 0
     inactive_player = 0
     active_player_list = []
     inactive_player_list = []
-    if turn_counter % 2 != 0:
+    if turn_counted % 2 != 0:
         active_player_list = player_one
         inactive_player_list = player_two
         if piece in player_one:
             inactive_player = 2
             restrict = 1
-    elif turn_counter % 2 == 0:
+    elif turn_counted % 2 == 0:
         active_player_list = player_two
         inactive_player_list = player_one
         if piece in player_two:
@@ -119,7 +121,6 @@ def legal_move(piece):
 # This function highlights a square of your choice to display valid moves.
 # It can be used to highlight enemy squares red, or allied squares blue.
 def highlight_space(x, y, color):
-
     highlighter.color(color)
     highlighter.pensize(2)
     highlighter.penup()
@@ -137,20 +138,16 @@ def highlight_space(x, y, color):
 
 
 def promote(piece):
-    active_player_list = []
-    if turn_counter % 2 != 0:
-        active_player_list = player_one
-    elif turn_counter % 2 == 0:
-        active_player_list = player_two
     if piece[0] in promotion:
         prompt = wn.textinput("Promotion", "Promote?(Yes or No)")
         if prompt.upper() == "YES":
-            active_player_list.remove(piece)
             name = piece[0]
-            new_name = "promoted" + name
+            new_name = "promoted\n" + name
             del piece[0]
             piece.insert(0, new_name)
-            active_player_list.append(piece)
+            return piece
+    else:
+        return piece
 
 
 def make_board():
@@ -160,9 +157,9 @@ def make_board():
     maker.penup()
     maker.setpos(225, -225)
     maker.pendown()
-    for lines in range(0, 2):
+    for lines in range(2):
         maker.left(90)
-        for repeat in range(0, 5):
+        for repeat in range(5):
             maker.forward(450)
             maker.left(90)
             maker.forward(50)
@@ -174,19 +171,18 @@ def make_board():
                 maker.right(90)
 
 
-def death(piece):
-    global turn_counter
+def death(piece, turn_counted):
     inactive_player_list = []
     inactive_player_dead = []
     active_player = 0
     x = 0
     y = 0
     done = 0
-    if turn_counter % 2 != 0:
+    if turn_counted % 2 != 0:
         inactive_player_list = player_two
         inactive_player_dead = player_two_dead
         active_player = 1
-    elif turn_counter % 2 == 0:
+    elif turn_counted % 2 == 0:
         inactive_player_list = player_one
         inactive_player_dead = player_one_dead
         active_player = 2
@@ -228,6 +224,7 @@ def move(u, v):
     inactive_player_dead = []
     selected = order_selected[len(order_selected) - 1]
     turtle_name = selected[3]
+    start_x = 0
 
     if x == "na" and y == "na":
         fail = 1
@@ -265,7 +262,7 @@ def move(u, v):
                     fail = 1
 
                 else:
-                    death(piece)
+                    death(piece, turn_counter)
 
     if fail != 1:
         active_player_list.remove(selected)
@@ -273,6 +270,8 @@ def move(u, v):
         selected.insert(1, x)
         del selected[2]
         selected.insert(2, y)
+        if y + 200 >= 300 and returned != 1:
+            selected = promote(selected)
         active_player_list.append(selected)
         temp_move_list.clear()
         highlighter.clear()
@@ -320,7 +319,7 @@ def select(x, y):
         turtle_ref = selected[3]
         turtle_ref.color("blue")
         order_selected.append(selected)
-        legal_move(selected)
+        legal_move(selected, turn_counter)
         wn.onclick(move)
 
     else:
@@ -329,19 +328,37 @@ def select(x, y):
         wn.onclick(select)
 
 
-player_one = [['turtle1', 50, 100, turtle.Turtle()], ['turtle3', 100, 100, turtle.Turtle()]]
+player_one = [['Pawn', -200, -100, turtle.Turtle()], ['Pawn', -150, -100, turtle.Turtle()],
+              ['Pawn', -100, -100, turtle.Turtle()], ['Pawn', -50, -100, turtle.Turtle()],
+              ['Pawn', 0, -100, turtle.Turtle()], ['Pawn', 50, -100, turtle.Turtle()],
+              ['Pawn', 100, -100, turtle.Turtle()], ['Pawn', 150, -100, turtle.Turtle()],
+              ['Pawn', 200, -100, turtle.Turtle()], ["Bishop", -150, -150, turtle.Turtle()],
+              ["Rook", 150, -150, turtle.Turtle()], ["Lance", -200, -200, turtle.Turtle()],
+              ["Knight", -150, -200, turtle.Turtle()], ["Silver Gen", -100, -200, turtle.Turtle()],
+              ["Gold Gen", -50, -200, turtle.Turtle()], ["King", 0, -200, turtle.Turtle()],
+              ["Gold Gen", 50, -200, turtle.Turtle()], ["Silver Gen", 100, -200, turtle.Turtle()],
+              ["Knight", 150, -200, turtle.Turtle()], ["Lance", 200, -200, turtle.Turtle()]]
 player_one_dead = []
-player_two = [['turtle2', 200, 100, turtle.Turtle()], ['turtle4', 200, 150, turtle.Turtle()],
-              ['turtle2', 200, 200, turtle.Turtle()], ['turtle2', 200, 50, turtle.Turtle()],
-              ['turtle2', 200, 0, turtle.Turtle()]]
+player_two = [['Pawn', -200, 100, turtle.Turtle()], ['Pawn', -150, 100, turtle.Turtle()],
+              ['Pawn', -100, 100, turtle.Turtle()], ['Pawn', -50, 100, turtle.Turtle()],
+              ['Pawn', 0, 100, turtle.Turtle()], ['Pawn', 50, 100, turtle.Turtle()],
+              ['Pawn', 100, 100, turtle.Turtle()], ['Pawn', 150, 100, turtle.Turtle()],
+              ['Pawn', 200, 100, turtle.Turtle()], ["Bishop", 150, 150, turtle.Turtle()],
+              ["Rook", -150, 150, turtle.Turtle()], ["Lance", 200, 200, turtle.Turtle()],
+              ["Knight", 150, 200, turtle.Turtle()], ["Silver Gen", 100, 200, turtle.Turtle()],
+              ["Gold Gen", 50, 200, turtle.Turtle()], ["King", 0, 200, turtle.Turtle()],
+              ["Gold Gen", -50, 200, turtle.Turtle()], ["Silver Gen", -100, 200, turtle.Turtle()],
+              ["Knight", -150, 200, turtle.Turtle()], ["Lance", -200, 200, turtle.Turtle()]]
 
 player_two_dead = []
-movement_rules = [['turtle1', [0, 50], [0, -50], [50, 0, 100, 0, 150, 0]],
-                  ['turtle2', [0, 50], [0, -50], [50, 0, 100, 0]],
+movement_rules = [['Pawn', [0, 50]], ['Rook', [0, 50, 0, 100, 0, 150, 0, 200, 0, 250, 0, 300, 0, 350, 0, 400],
+                                      [50, 0, 100, 0, 150, 0, 200, 0, 250, 0, 300, 0, 350, 0, 400, 0],
+                                      [-50, 0, -100, 0, -150, 0, -200, 0, -250, 0, -300, 0, -350, 0, -400, 0],
+                                      [0, -50, 0, -100, 0, -150, 0, -200, 0, -250, 0, -300, 0, -350, 0, -400]],
                   ['turtle3', [0, 50], [0, -50]], ['turtle4', [0, 50], [0, -50]]]
 
 temp_move_list = []
-promotion = []
+promotion = ["Pawn", "Knight", "Lance", "Bishop", "Rook"]
 order_selected = []
 middle = mid()
 turn_counter = 1
@@ -350,7 +367,7 @@ wn = turtle.Screen()
 wn.title("Shogi")
 make_board()
 make_yards()
-wn.register_shape("tri", ((10, -3), (10, -20), (-10, -20), (-10, -3), (-5, 10), (5, 10)))
+wn.register_shape("tri", ((10, -3), (10, -12), (-10, -12), (-10, -3), (-5, 10), (5, 10)))
 highlighter = turtle.Turtle()
 highlighter.ht()
 highlighter.speed(0)
@@ -360,6 +377,7 @@ for player_one_set in player_one:
     turtle_names.shape("tri")
     turtle_names.penup()
     turtle_names.setpos(player_one_set[1], player_one_set[2])
+    turtle_names.left(90)
     turtle_names.write(player_one_set[0] + "\n", align="center", font=("Arial", 7, "bold"))
 
 for player_two_set in player_two:
@@ -367,7 +385,7 @@ for player_two_set in player_two:
     turtle_names.shape("tri")
     turtle_names.penup()
     turtle_names.setpos(player_two_set[1], player_two_set[2])
-    turtle_names.right(180)
+    turtle_names.right(90)
     turtle_names.write(player_two_set[0] + "\n", align="center", font=("Arial", 7, "bold"))
 
 if turn_counter == 1:
