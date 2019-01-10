@@ -68,6 +68,40 @@ def mid():
     return midd
 
 
+def flip():
+    for piece_1 in player_one:
+        turtle_controller = piece_1[3]
+        x = -piece_1[1]
+        y = -piece_1[2]
+        wn.tracer(0,0)
+        player_one.remove(turtle_controller)
+        del piece_1[1]
+        piece_1.insert(1, x)
+        del piece_1[2]
+        piece_1.insert(2, y)
+        player_one.append(piece_1)
+        turtle_controller.setpos(x, y)
+        turtle_controller.right(180)
+        turtle_controller.write(piece_1[0])
+        wn.tracer(1,5)
+    for piece_2 in player_two:
+        turtle_controller = piece_2[3]
+        x = -piece_2[1]
+        y = -piece_2[2]
+        wn.tracer(0, 0)
+        player_two.remove(turtle_controller)
+        del piece_2[1]
+        piece_2.insert(1, x)
+        del piece_2[2]
+        piece_2.insert(2, y)
+        player_two.append(piece_2)
+        turtle_controller.setpos(x, y)
+        turtle_controller.right(180)
+        turtle_controller.write(piece_2[0])
+        wn.tracer(1, 5)
+    wn.update()
+
+
 def legal_move(piece, turn_counted):
     global temp_move_list
     restrict = 0
